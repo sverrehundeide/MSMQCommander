@@ -43,15 +43,13 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\lib\AvalonDock.Themes.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Micro">
-      <HintPath>..\packages\Caliburn.Micro.1.1.0\lib\Net40\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\packages\Caliburn.Micro.1.1.0\lib\Net40\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,12 +68,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ShellViewModel.cs" />
-    <Compile Include="ViewModels\QueueTreeViewModel.cs" />
-    <Compile Include="Views\QueueDetailsView.xaml.cs">
-      <DependentUpon>QueueDetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\QueueTreeView.xaml.cs">
-      <DependentUpon>QueueTreeView.xaml</DependentUpon>
+    <Compile Include="Utils\ConsoleLogger.cs" />
+    <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
+    <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
+    <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />
+    <Compile Include="Views\TreeView.xaml.cs">
+      <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -95,13 +93,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\QueueDetailsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\DetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\QueueTreeView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\TreeView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +120,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
