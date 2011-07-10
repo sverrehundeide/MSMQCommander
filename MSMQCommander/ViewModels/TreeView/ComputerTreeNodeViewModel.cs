@@ -9,14 +9,23 @@ namespace MSMQCommander.ViewModels
         public ComputerTreeNodeViewModel(string name)
         {
             Name = name;
-            Children = new BindableCollection<QueueTypeTreeNodeViewModel>{new QueueTypeTreeNodeViewModel("Private queues")};
+            Children = new BindableCollection<QueueTypeTreeNodeViewModel>
+                           {
+                               new QueueTypeTreeNodeViewModel(Name, "Private queues")
+                           };
         }
 
         public BindableCollection<QueueTypeTreeNodeViewModel> Children { get; private set; } 
 
         public string Name
         {
-            get { return _name; }
+            get
+            {
+                if (_name == ".")
+                    return "localhost";
+
+                return _name;
+            }
             private set
             {
                 _name = value;

@@ -4,11 +4,31 @@ namespace MSMQCommander.ViewModels
 {
     public class QueueTypeTreeNodeViewModel : PropertyChangedBase
     {
-        public string Name { get; set; }
+        private readonly string _computerName;
+        private readonly string _queueType;
 
-        public QueueTypeTreeNodeViewModel(string queueTypeName)
+        public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; } 
+
+        public QueueTypeTreeNodeViewModel(string computerName, string queueType)
         {
-            Name = queueTypeName;
+            _computerName = computerName;
+            _queueType = queueType;
+            ReadAndInitializeChildQueues();
+        }
+
+        private void ReadAndInitializeChildQueues()
+        {
+            Children = new BindableCollection<QueueTreeNodeViewModel>();
+            var privateQueues = new MsmqLib.QueueService().GetPrivateQueues(_computerName);
+            foreach (var queue in privateQueues)
+            {
+                Children.Add(new QueueTreeNodeViewModel(queue));
+            }
+        }
+
+        public string Name
+        {
+            get { return _queueType; }
         }
     }
 }

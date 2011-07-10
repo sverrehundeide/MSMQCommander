@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -69,7 +70,9 @@
     </ApplicationDefinition>
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />
+    <Compile Include="Utils\MessageQueueExtensions.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
+    <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />
     <Compile Include="Views\TreeView.xaml.cs">
@@ -126,7 +129,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MsmqLib\MsmqLib.csproj">
+      <Project>{4ACA86A7-CCF5-4B1D-8041-32911F52BE74}</Project>
+      <Name>MsmqLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

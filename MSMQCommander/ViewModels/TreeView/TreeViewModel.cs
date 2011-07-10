@@ -11,7 +11,7 @@ namespace MSMQCommander.ViewModels
 
         public TreeViewModel()
         {
-            Computers = new BindableCollection<ComputerTreeNodeViewModel> {new ComputerTreeNodeViewModel("localhost")};
+            Computers = new BindableCollection<ComputerTreeNodeViewModel> {new ComputerTreeNodeViewModel(".")};
         }
     }
 }
