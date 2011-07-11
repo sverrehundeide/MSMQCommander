@@ -13,6 +13,10 @@ namespace MSMQCommander.ViewModels
         {
             _computerName = computerName;
             _queueType = queueType;
+
+            IsExpanded = true;
+            IsSelected = true;
+
             ReadAndInitializeChildQueues();
         }
 
@@ -30,5 +34,8 @@ namespace MSMQCommander.ViewModels
         {
             get { return _queueType; }
         }
+
+        public bool IsExpanded { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

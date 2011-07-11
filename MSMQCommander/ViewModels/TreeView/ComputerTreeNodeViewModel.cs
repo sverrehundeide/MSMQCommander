@@ -8,6 +8,9 @@ namespace MSMQCommander.ViewModels
 
         public ComputerTreeNodeViewModel(string name)
         {
+            IsSelected = true;
+            IsExpanded = true;
+
             Name = name;
             Children = new BindableCollection<QueueTypeTreeNodeViewModel>
                            {
@@ -32,5 +35,8 @@ namespace MSMQCommander.ViewModels
                 NotifyOfPropertyChange(() => Name);
             }
         }
+
+        public bool IsSelected { get; set; }
+        public bool IsExpanded { get; set; }
     }
 }
