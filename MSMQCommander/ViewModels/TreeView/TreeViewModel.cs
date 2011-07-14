@@ -4,14 +4,15 @@ using Caliburn.Micro;
 
 namespace MSMQCommander.ViewModels
 {
-    [Export(typeof(TreeViewModel))]
+    [Export]
     public class TreeViewModel : Screen
     {
         public BindableCollection<ComputerTreeNodeViewModel> Computers { get; private set; }
 
-        public TreeViewModel()
+        [ImportingConstructor]
+        public TreeViewModel(IEventAggregator eventAggregator)
         {
-            Computers = new BindableCollection<ComputerTreeNodeViewModel> {new ComputerTreeNodeViewModel(".")};
+            Computers = new BindableCollection<ComputerTreeNodeViewModel> {new ComputerTreeNodeViewModel(eventAggregator, ".")};
         }
     }
 }

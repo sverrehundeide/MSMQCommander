@@ -4,13 +4,15 @@ namespace MSMQCommander.ViewModels
 {
     public class QueueTypeTreeNodeViewModel : PropertyChangedBase
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly string _computerName;
         private readonly string _queueType;
 
-        public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; } 
+        public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; }
 
-        public QueueTypeTreeNodeViewModel(string computerName, string queueType)
+        public QueueTypeTreeNodeViewModel(IEventAggregator eventAggregator, string computerName, string queueType)
         {
+            _eventAggregator = eventAggregator;
             _computerName = computerName;
             _queueType = queueType;
 
@@ -26,7 +28,7 @@ namespace MSMQCommander.ViewModels
             var privateQueues = new MsmqLib.QueueService().GetPrivateQueues(_computerName);
             foreach (var queue in privateQueues)
             {
-                Children.Add(new QueueTreeNodeViewModel(queue));
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue));
             }
         }
 

@@ -1,17 +1,20 @@
 ﻿using System.Messaging;
 using Caliburn.Micro;
+using MSMQCommander.Events;
 using MSMQCommander.Utils;
 
 namespace MSMQCommander.ViewModels
 {
     public class QueueTreeNodeViewModel : PropertyChangedBase
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly MessageQueue _messageQueue;
         private bool _isExpanded;
         private bool _isSelected;
 
-        public QueueTreeNodeViewModel(MessageQueue messageQueue)
+        public QueueTreeNodeViewModel(IEventAggregator eventAggregator, MessageQueue messageQueue)
         {
+            _eventAggregator = eventAggregator;
             _messageQueue = messageQueue;
         }
 
@@ -42,6 +45,7 @@ namespace MSMQCommander.ViewModels
                 {
                     _isSelected = value;
                     NotifyOfPropertyChange(() => IsSelected);
+                    _eventAggregator.Publish(new QueueSelectedEvent(_messageQueue));
                 }
             }
         }

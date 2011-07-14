@@ -4,17 +4,19 @@ namespace MSMQCommander.ViewModels
 {
     public class ComputerTreeNodeViewModel : PropertyChangedBase
     {
+        private readonly IEventAggregator _eventAggregator;
         private string _name;
 
-        public ComputerTreeNodeViewModel(string name)
+        public ComputerTreeNodeViewModel(IEventAggregator eventAggregator, string name)
         {
+            _eventAggregator = eventAggregator;
             IsSelected = true;
             IsExpanded = true;
 
             Name = name;
             Children = new BindableCollection<QueueTypeTreeNodeViewModel>
                            {
-                               new QueueTypeTreeNodeViewModel(Name, "Private queues")
+                               new QueueTypeTreeNodeViewModel(_eventAggregator, Name, "Private queues")
                            };
         }
 

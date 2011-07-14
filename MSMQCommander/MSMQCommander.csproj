@@ -68,13 +68,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\QueueSelectedEvent.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />
     <Compile Include="Utils\MessageQueueExtensions.cs" />
+    <Compile Include="ViewModels\DetailsView\DetailsViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />
+    <Compile Include="Views\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TreeView.xaml.cs">
       <DependentUpon>TreeView.xaml</DependentUpon>
     </Compile>
