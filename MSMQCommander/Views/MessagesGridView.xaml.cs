@@ -1,8 +1,8 @@
 ﻿namespace MSMQCommander.Views
 {
-    public partial class DetailsView
+    public partial class MessagesGridView
     {
-        public DetailsView()
+        public MessagesGridView()
         {
             InitializeComponent();
         }

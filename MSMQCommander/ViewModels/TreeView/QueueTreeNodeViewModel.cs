@@ -45,7 +45,10 @@ namespace MSMQCommander.ViewModels
                 {
                     _isSelected = value;
                     NotifyOfPropertyChange(() => IsSelected);
-                    _eventAggregator.Publish(new QueueSelectedEvent(_messageQueue));
+                    if (_isSelected)
+                    {
+                        _eventAggregator.Publish(new QueueSelectedEvent(_messageQueue));
+                    }
                 }
             }
         }
