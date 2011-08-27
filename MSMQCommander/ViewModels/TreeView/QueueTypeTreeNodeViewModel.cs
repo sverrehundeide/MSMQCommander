@@ -1,20 +1,24 @@
 ﻿using Caliburn.Micro;
+using MSMQCommander.Contex;
+using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
     public class QueueTypeTreeNodeViewModel : PropertyChangedBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IQueueService _queueService;
         private readonly string _computerName;
         private readonly string _queueType;
 
         public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; }
 
-        public QueueTypeTreeNodeViewModel(IEventAggregator eventAggregator, string computerName, string queueType)
+        public QueueTypeTreeNodeViewModel(IEventAggregator eventAggregator, IQueueService queueService, QueueConnectionContext queueConnectionContext)
         {
             _eventAggregator = eventAggregator;
-            _computerName = computerName;
-            _queueType = queueType;
+            _queueService = queueService;
+            _computerName = queueConnectionContext.ComputerName;
+            _queueType = "Private queues"; //TODO: Reuse class to support public queues
 
             IsExpanded = true;
             IsSelected = true;
@@ -25,7 +29,7 @@ namespace MSMQCommander.ViewModels
         private void ReadAndInitializeChildQueues()
         {
             Children = new BindableCollection<QueueTreeNodeViewModel>();
-            var privateQueues = new MsmqLib.QueueService().GetPrivateQueues(_computerName);
+            var privateQueues = _queueService.GetPrivateQueues(_computerName);
             foreach (var queue in privateQueues)
             {
                 Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue));

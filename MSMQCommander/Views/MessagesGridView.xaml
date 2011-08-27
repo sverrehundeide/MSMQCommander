@@ -6,11 +6,10 @@
              xmlns:cal="http://www.caliburnproject.org" 
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="300" 
-             cal:Bind.Model="MSMQCommander.ViewModels.DetailsViewModel">
+             cal:Bind.Model="MSMQCommander.ViewModels.MessagesGridViewModel">
     <Grid>
         <DockPanel>
             <DataGrid ItemsSource="{Binding Messages}">
-                
             </DataGrid>
         </DockPanel>
     </Grid>

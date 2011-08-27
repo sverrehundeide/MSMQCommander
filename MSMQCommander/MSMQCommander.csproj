@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Contex\CurrentSelectedQueueContext.cs" />
+    <Compile Include="Contex\QueueConnectionContext.cs" />
     <Compile Include="Events\QueueSelectedEvent.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />

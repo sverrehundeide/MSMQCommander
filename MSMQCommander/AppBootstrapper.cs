@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Autofac;
 using MSMQCommander.Contex;
+using MsmqLib;
 
 namespace MSMQCommander
 {
@@ -17,14 +18,12 @@ namespace MSMQCommander
 		{
 		    var builder = new ContainerBuilder();
 
-            // ViewModels:
 		    builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
 		        .Where(type => type.Name.EndsWith("ViewModel"))
 		        .Where(type => type.GetInterface(typeof (INotifyPropertyChanged).Name) != null)
 		        .AsSelf()
 		        .InstancePerDependency();
 
-            //Views:
 		    builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
 		        .Where(type => type.Name.EndsWith("View"))
 		        .AsSelf()
@@ -39,6 +38,12 @@ namespace MSMQCommander
 		        .InstancePerLifetimeScope();
 
 		    builder.RegisterType<CurrentSelectedQueueContext>()
+		        .AsSelf()
+		        .InstancePerLifetimeScope();
+
+		    builder.RegisterType<QueueService>().As<IQueueService>();
+
+		    builder.Register(c => new QueueConnectionContext {ComputerName = "."})
 		        .AsSelf()
 		        .InstancePerLifetimeScope();
 

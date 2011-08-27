@@ -6,9 +6,9 @@ namespace MSMQCommander.ViewModels
     {
         public BindableCollection<ComputerTreeNodeViewModel> Computers { get; private set; }
 
-        public TreeViewModel(IEventAggregator eventAggregator)
+        public TreeViewModel(ComputerTreeNodeViewModel computerTreeNodeViewModel)
         {
-            Computers = new BindableCollection<ComputerTreeNodeViewModel> {new ComputerTreeNodeViewModel(eventAggregator, ".")};
+            Computers = new BindableCollection<ComputerTreeNodeViewModel> { computerTreeNodeViewModel };
         }
     }
 }

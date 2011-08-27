@@ -1,22 +1,21 @@
 ﻿using Caliburn.Micro;
+using MSMQCommander.Contex;
 
 namespace MSMQCommander.ViewModels
 {
     public class ComputerTreeNodeViewModel : PropertyChangedBase
     {
-        private readonly IEventAggregator _eventAggregator;
-        private string _name;
+        private readonly QueueConnectionContext _queueConnectionContext;
 
-        public ComputerTreeNodeViewModel(IEventAggregator eventAggregator, string name)
+        public ComputerTreeNodeViewModel(QueueConnectionContext queueConnectionContext, QueueTypeTreeNodeViewModel queueTypeTreeNodeViewModel)
         {
-            _eventAggregator = eventAggregator;
+            _queueConnectionContext = queueConnectionContext;
             IsSelected = true;
             IsExpanded = true;
 
-            Name = name;
             Children = new BindableCollection<QueueTypeTreeNodeViewModel>
                            {
-                               new QueueTypeTreeNodeViewModel(_eventAggregator, Name, "Private queues")
+                               queueTypeTreeNodeViewModel,
                            };
         }
 
@@ -26,15 +25,10 @@ namespace MSMQCommander.ViewModels
         {
             get
             {
-                if (_name == ".")
+                if (_queueConnectionContext.ComputerName == ".")
                     return "localhost";
 
-                return _name;
-            }
-            private set
-            {
-                _name = value;
-                NotifyOfPropertyChange(() => Name);
+                return _queueConnectionContext.ComputerName;
             }
         }
 

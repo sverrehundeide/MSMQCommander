@@ -5,7 +5,18 @@ using MsmqLib.Mapping;
 
 namespace MsmqLib
 {
-    public class QueueService
+    public interface IQueueService
+    {
+        MessageQueue[] GetPrivateQueues(string computerName);
+        void CreateQueue(string queuePath);
+        void DeleteQueue(string queuePath);
+        void CreateMessage(string queuePath, object body, string label = null);
+        IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null);
+        void ClearMessages(string queuePath, string labelFilter = null);
+        IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null);
+    }
+
+    public class QueueService : IQueueService
     {
         public MessageQueue[] GetPrivateQueues(string computerName)
         {
@@ -36,11 +47,14 @@ namespace MsmqLib
         public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)
         {
             Guard.QueueExists(queuePath);
+            var queue = new MessageQueue(queuePath);
+            return GetMessageInfos(queue, labelFilter);
+        }
 
-            var queue = new MessageQueue(queuePath)
-                            {
-                                MessageReadPropertyFilter = {Label = true, SentTime = true}
-                            };
+        public IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null)
+        {
+            queue.MessageReadPropertyFilter.Label = true;
+            queue.MessageReadPropertyFilter.SentTime = true;
 
             var result = new List<MessageInfo>();
 
