@@ -46,7 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrangeActAssertTestBase.cs" />
+    <Compile Include="MessageObjectTestClasses\TestClass1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueueServiceTests\CreateMessageTests.cs" />
+    <Compile Include="QueueServiceTests\GetMessageInfosTests.cs" />
     <Compile Include="QueueServiceTests\QueueStatusQueryServiceTests.cs" />
     <Compile Include="QueueTestHelper.cs" />
   </ItemGroup>

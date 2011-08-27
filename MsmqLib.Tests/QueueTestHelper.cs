@@ -12,11 +12,15 @@ namespace MsmqLib.Tests
 
         public static void CreatePrivateQueue(string computerName, string queueName)
         {
-            var queuePath = computerName + @"\private$\" + queueName;
+            var queuePath = CreateQueuePathForPrivateQueue(computerName, queueName);
             var queueService = new QueueService();
-            queueService.Create(queuePath);
+            queueService.CreateQueue(queuePath);
         }
 
+        public static string CreateQueuePathForPrivateQueue(string computerName, string queueName)
+        {
+            return computerName + @"\private$\" + queueName;
+        }
 
         public static void CleanupPrivateTestQueues(string computerName, string partialTestQueueName)
         {
