@@ -1,20 +1,22 @@
-﻿<ad:DocumentContent x:Class="MSMQCommander.Views.MessageDetailsView"
+﻿<UserControl x:Class="MSMQCommander.Views.MessageDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock" 
              xmlns:cal="http://www.caliburnproject.org" 
-                    xmlns:Views="clr-namespace:MSMQCommander.Views"
-                    mc:Ignorable="d" 
+             xmlns:Views="clr-namespace:MSMQCommander.Views"
+             mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" 
-             IsCloseable="False"
-             cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel"
-             Title="{Binding Path=Title}"
-             IsFloatingAllowed="False">
+             cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel">
     <Grid>
         <DockPanel>
-            <TextBlock>Test</TextBlock>
+            <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding Path=Body, Mode=OneWay}"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox> 
         </DockPanel>
     </Grid>
-</ad:DocumentContent>
+</UserControl>
