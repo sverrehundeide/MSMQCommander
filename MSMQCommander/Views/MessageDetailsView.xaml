@@ -1,4 +1,4 @@
-﻿<ad:DocumentContent x:Class="MSMQCommander.Views.DetailsView"
+﻿<ad:DocumentContent x:Class="MSMQCommander.Views.MessageDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,14 @@
              xmlns:cal="http://www.caliburnproject.org" 
                     xmlns:Views="clr-namespace:MSMQCommander.Views"
                     mc:Ignorable="d" 
-             d:DesignHeight="246" d:DesignWidth="300" 
+             d:DesignHeight="300" d:DesignWidth="300" 
              IsCloseable="False"
-             cal:Bind.Model="MSMQCommander.ViewModels.DetailsViewModel"
+             cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel"
              Title="{Binding Path=Title}"
              IsFloatingAllowed="False">
     <Grid>
         <DockPanel>
-            <Views:MessagesGridView DockPanel.Dock="Top" MinHeight="100"/>
-            <Views:MessageDetailsView DockPanel.Dock="Bottom"/>
+            <TextBlock>Test</TextBlock>
         </DockPanel>
     </Grid>
 </ad:DocumentContent>

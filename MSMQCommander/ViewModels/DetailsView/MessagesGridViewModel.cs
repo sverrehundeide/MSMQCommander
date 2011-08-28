@@ -2,6 +2,7 @@
 using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
+using MSMQCommander.Events;
 using MsmqLib;
 
 namespace MSMQCommander.ViewModels
@@ -9,13 +10,15 @@ namespace MSMQCommander.ViewModels
     public class MessagesGridViewModel : PropertyChangedBase
     {
         private readonly IQueueService _queueService;
+        private readonly IEventAggregator _eventAggregator;
         private readonly MessageQueue _messageQueue;
 
         public BindableCollection<MessageGridRowViewModel> Messages { get; private set; }
 
-        public MessagesGridViewModel(IQueueService queueService, CurrentSelectedQueueContext selectedQueueContext)
+        public MessagesGridViewModel(IQueueService queueService, IEventAggregator eventAggregator,CurrentSelectedQueueContext selectedQueueContext)
         {
             _queueService = queueService;
+            _eventAggregator = eventAggregator;
             _messageQueue = selectedQueueContext.CurrentSelectedMessageQueue;
             Messages = new BindableCollection<MessageGridRowViewModel>();
             RefreshMessages();
@@ -27,5 +30,16 @@ namespace MSMQCommander.ViewModels
             Messages.Clear();
             Messages.AddRange(messageInfos.Select(info => new MessageGridRowViewModel(info)));
         }
-    }
+
+        public MessageGridRowViewModel SelectedItem
+        {
+            set
+            {
+                if (value == null)
+                    return;
+
+                _eventAggregator.Publish(new MessageSelectedEvent(_messageQueue, value.Id));
+            }
+        }
+   }
 }

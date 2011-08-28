@@ -72,17 +72,22 @@
     </ApplicationDefinition>
     <Compile Include="Contex\CurrentSelectedQueueContext.cs" />
     <Compile Include="Contex\QueueConnectionContext.cs" />
+    <Compile Include="Events\MessageSelectedEvent.cs" />
     <Compile Include="Events\QueueSelectedEvent.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />
     <Compile Include="Utils\MessageQueueExtensions.cs" />
     <Compile Include="ViewModels\DetailsView\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\DetailsView\MessageDetailsViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessagesGridViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessageGridRowViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />
+    <Compile Include="Views\MessageDetailsView.xaml.cs">
+      <DependentUpon>MessageDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessagesGridView.xaml.cs">
       <DependentUpon>MessagesGridView.xaml</DependentUpon>
     </Compile>
@@ -107,6 +112,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MessageDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
