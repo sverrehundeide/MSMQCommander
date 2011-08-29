@@ -12,13 +12,19 @@
         <DockPanel>
             <TabControl>
                 <TabItem Header="Body">
-                    <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True">
-                        <FlowDocument>
-                            <Paragraph>
-                                <Run Text="{Binding Path=Body, Mode=OneWay}"/>
-                            </Paragraph>
-                        </FlowDocument>
-                    </RichTextBox>
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <Label>Size:</Label>
+                            <TextBlock Text="{Binding Path=BodySize, Mode=OneWay}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="{Binding Path=Body, Mode=OneWay}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </DockPanel>
                 </TabItem>
                 <TabItem Header="Queues">
                     <Grid VerticalAlignment="Top">

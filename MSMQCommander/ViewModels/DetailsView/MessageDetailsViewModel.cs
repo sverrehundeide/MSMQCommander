@@ -35,11 +35,23 @@ namespace MSMQCommander.ViewModels
         private void SetCurrentMessage(Message fullMessage)
         {
             _message = fullMessage;
+            NotifyOfPropertyChange(() => BodySize);
             NotifyOfPropertyChange(() => Body);
             NotifyOfPropertyChange(() => DestinationQueue);
             NotifyOfPropertyChange(() => ResponseQueue);
             NotifyOfPropertyChange(() => AdministrationQueue);
             NotifyOfPropertyChange(() => TransactionStatusQueue);
+        }
+
+        public string BodySize
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return string.Format("{0} bytes", _message.BodyStream.Length);
+            }
         }
 
         public string Body
