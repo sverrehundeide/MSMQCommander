@@ -54,6 +54,8 @@ namespace MsmqLib
 
         public IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null)
         {
+            queue.MessageReadPropertyFilter.ClearAll();
+            queue.MessageReadPropertyFilter.Id = true;
             queue.MessageReadPropertyFilter.Label = true;
             queue.MessageReadPropertyFilter.SentTime = true;
 

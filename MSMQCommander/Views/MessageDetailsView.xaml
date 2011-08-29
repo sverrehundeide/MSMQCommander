@@ -6,17 +6,43 @@
              xmlns:cal="http://www.caliburnproject.org" 
              xmlns:Views="clr-namespace:MSMQCommander.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" 
+             d:DesignHeight="273" d:DesignWidth="550" 
              cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel">
     <Grid>
         <DockPanel>
-            <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding Path=Body, Mode=OneWay}"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox> 
+            <TabControl>
+                <TabItem Header="Body">
+                    <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Run Text="{Binding Path=Body, Mode=OneWay}"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </TabItem>
+                <TabItem Header="Queues">
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0">DestinationQueue:</Label>
+                        <TextBox Grid.Column="1" Text="{Binding Path=DestinationQueue, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="1">ResponseQueue:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=ResponseQueue, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="2">AdministrationQueue:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AdministrationQueue, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="3">TransactionStatusQueue:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TransactionStatusQueue, Mode=OneWay}" IsReadOnly="True"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </DockPanel>
     </Grid>
 </UserControl>

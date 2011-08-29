@@ -36,6 +36,10 @@ namespace MSMQCommander.ViewModels
         {
             _message = fullMessage;
             NotifyOfPropertyChange(() => Body);
+            NotifyOfPropertyChange(() => DestinationQueue);
+            NotifyOfPropertyChange(() => ResponseQueue);
+            NotifyOfPropertyChange(() => AdministrationQueue);
+            NotifyOfPropertyChange(() => TransactionStatusQueue);
         }
 
         public string Body
@@ -48,6 +52,50 @@ namespace MSMQCommander.ViewModels
                 var reader = new StreamReader(_message.BodyStream);
                 var text = reader.ReadToEnd();
                 return text;
+            }
+        }
+
+        public string DestinationQueue
+        {
+            get
+            {
+                if (_message == null || _message.DestinationQueue == null)
+                    return string.Empty;
+
+                return _message.DestinationQueue.Path;
+            }
+        }
+
+        public string ResponseQueue
+        {
+            get
+            {
+                if (_message == null || _message.ResponseQueue == null)
+                    return string.Empty;
+
+                return _message.ResponseQueue.Path;
+            }
+        }
+
+        public string AdministrationQueue
+        {
+            get
+            {
+                if (_message == null || _message.AdministrationQueue == null)
+                    return string.Empty;
+
+                return _message.AdministrationQueue.Path;
+            }
+        }
+
+        public string TransactionStatusQueue
+        {
+            get
+            {
+                if (_message == null || _message.TransactionStatusQueue == null)
+                    return string.Empty;
+
+                return _message.TransactionStatusQueue.Path;
             }
         }
     }
