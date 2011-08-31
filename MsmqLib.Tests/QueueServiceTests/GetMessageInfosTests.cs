@@ -12,7 +12,7 @@ namespace MsmqLib.Tests.QueueServiceTests
         private const string TestQueueName = "integrationTestQueue_1";
         private const string ComputerName = ".";
         private const string TestMessagesLabel = "CreateMessageTest";
-        const int MessageCount = 10;
+        const int MessageCount = 20;
         private QueueService _queueService;
         private string _queuePath;
 

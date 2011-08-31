@@ -41,6 +41,10 @@ namespace MSMQCommander.ViewModels
             NotifyOfPropertyChange(() => ResponseQueue);
             NotifyOfPropertyChange(() => AdministrationQueue);
             NotifyOfPropertyChange(() => TransactionStatusQueue);
+            NotifyOfPropertyChange(() => ArrivedTime);
+            NotifyOfPropertyChange(() => SentTime);
+            NotifyOfPropertyChange(() => TimeToBeReceived);
+            NotifyOfPropertyChange(() => TimeToReachQueue);
         }
 
         public string BodySize
@@ -108,6 +112,50 @@ namespace MSMQCommander.ViewModels
                     return string.Empty;
 
                 return _message.TransactionStatusQueue.Path;
+            }
+        }
+
+        public string ArrivedTime
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.ArrivedTime.ToString("yyyy-MM-dd HH:mm:ss.fff (zzz)");
+            }
+        }
+
+        public string SentTime
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.SentTime.ToString("yyyy-MM-dd HH:mm:ss.fff (zzz)");
+            }
+        }
+
+        public string TimeToBeReceived
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.TimeToBeReceived.ToString("G");
+            }
+        }
+
+        public string TimeToReachQueue
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.TimeToReachQueue.ToString("G");
             }
         }
     }

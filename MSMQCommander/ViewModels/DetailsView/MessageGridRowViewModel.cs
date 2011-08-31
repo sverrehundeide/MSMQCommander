@@ -12,7 +12,7 @@ namespace MSMQCommander.ViewModels
         {
             Id = message.Id;
             Label = message.Label;
-            SentTime = message.SentTime.ToShortDateString() + " " + message.SentTime.ToShortTimeString();
+            SentTime = message.SentTime.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
     }
 }

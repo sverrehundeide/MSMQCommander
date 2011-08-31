@@ -48,6 +48,28 @@
                         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TransactionStatusQueue, Mode=OneWay}" IsReadOnly="True"/>
                     </Grid>
                 </TabItem>
+                <TabItem Header="Time">
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0">ArrivedTime:</Label>
+                        <TextBox Grid.Column="1" Text="{Binding Path=ArrivedTime, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="1">SentTime:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SentTime, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="2">TimeToBeReceived:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=TimeToBeReceived, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="3">TimeToReachQueue:</Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TimeToReachQueue, Mode=OneWay}" IsReadOnly="True"/>
+                    </Grid>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

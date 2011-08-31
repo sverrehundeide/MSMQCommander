@@ -14,7 +14,7 @@
              IsFloatingAllowed="False">
     <Grid>
         <DockPanel>
-            <Views:MessagesGridView DockPanel.Dock="Top" MinHeight="100"/>
+            <Views:MessagesGridView DockPanel.Dock="Top" MinHeight="100" MaxHeight="250" />
             <Views:MessageDetailsView DockPanel.Dock="Bottom"/>
         </DockPanel>
     </Grid>
