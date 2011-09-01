@@ -94,6 +94,7 @@ namespace MsmqLib
         public Message GetFullMessage(MessageQueue messageQueue, string messageId)
         {
             messageQueue.MessageReadPropertyFilter.SetAll();
+            messageQueue.MessageReadPropertyFilter.SourceMachine = true;
             return messageQueue.PeekById(messageId);
         }
 

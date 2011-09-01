@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org" 
-             xmlns:Views="clr-namespace:MSMQCommander.Views"
+             xmlns:Views="clr-namespace:MSMQCommander.Views" xmlns:Mime="clr-namespace:System.Net.Mime;assembly=System"
              mc:Ignorable="d" 
              d:DesignHeight="273" d:DesignWidth="550" 
              cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel">
@@ -38,13 +38,13 @@
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0">DestinationQueue:</Label>
+                        <Label Grid.Column="0" Grid.Row="0" Content="DestinationQueue:" ToolTip="The intended destination queue for a message"/>
                         <TextBox Grid.Column="1" Text="{Binding Path=DestinationQueue, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="1">ResponseQueue:</Label>
+                        <Label Grid.Column="0" Grid.Row="1" Content="ResponseQueue:" ToolTip="The MessageQueue to which application-generated response messages are returned"/>
                         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=ResponseQueue, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="2">AdministrationQueue:</Label>
+                        <Label Grid.Column="0" Grid.Row="2" Content="AdministrationQueue:" ToolTip="The queue that receives the acknowledgement messages that Message Queuing generates"/>
                         <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=AdministrationQueue, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="3">TransactionStatusQueue:</Label>
+                        <Label Grid.Column="0" Grid.Row="3" Content="TransactionStatusQueue:" ToolTip="The transaction status queue on the source computer, which is used for sending acknowledgement messages back to the sending application"/>
                         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TransactionStatusQueue, Mode=OneWay}" IsReadOnly="True"/>
                     </Grid>
                 </TabItem>
@@ -60,14 +60,48 @@
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0">ArrivedTime:</Label>
+                        <Label Grid.Column="0" Grid.Row="0" Content="ArrivedTime:" ToolTip="The time that the message arrived in the destination queue"/>
                         <TextBox Grid.Column="1" Text="{Binding Path=ArrivedTime, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="1">SentTime:</Label>
+                        <Label Grid.Column="0" Grid.Row="1" Content="SentTime:" ToolTip="Date and time on the sending computer that the message was sent by the source queue manager"/>
                         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=SentTime, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="2">TimeToBeReceived:</Label>
+                        <Label Grid.Column="0" Grid.Row="2" Content="TimeToBeReceived:" ToolTip="The maximum amount of time for the message to be received from the destination queue"/>
                         <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=TimeToBeReceived, Mode=OneWay}" IsReadOnly="True"/>
-                        <Label Grid.Column="0" Grid.Row="3">TimeToReachQueue:</Label>
+                        <Label Grid.Column="0" Grid.Row="3" Content="TimeToReachQueue:" ToolTip="The time limit for the message to reach the destination queue, beginning from the time the message is sent"/>
                         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=TimeToReachQueue, Mode=OneWay}" IsReadOnly="True"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Flags">
+                    <Grid VerticalAlignment="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Priority:" ToolTip="Lowest, VeryLow, Low, Normal, AboveNormal, High, VeryHigh or Highest"/>
+                        <TextBox Grid.Column="1" Text="{Binding Path=Priority, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="UseDeadLetterQueue:" ToolTip="Whether a copy of the message that could not be delivered should be sent to a dead-letter queue"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=UseDeadLetterQueue, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="2" Content="UseJournalQueue:" ToolTip="Whether a copy of the message should be kept in a machine journal on the originating computer"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=UseJournalQueue, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Recoverable:" ToolTip="Whether the message is guaranteed to be delivered in the event of a computer failure or network problem"/>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Recoverable, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="4" Content="UseAuthentication:" ToolTip="Whether the message was (or must be) authenticated before being sent"/>
+                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=UseAuthentication, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="5" Content="UseEncryption:" ToolTip="Require Message Queuing to encrypt the message"/>
+                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=UseEncryption, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="6" Content="UseTracing:" ToolTip="If each intermediate step made by the original message en route to the destination queue generates a report to be sent to the system's report queue"/>
+                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=UseTracing, Mode=OneWay}" IsReadOnly="True"/>
+                        <Label Grid.Column="0" Grid.Row="7" Content="MessageType:" ToolTip="Normal, Acknowledgment or Report"/>
+                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=MessageType, Mode=OneWay}" IsReadOnly="True"/>
                     </Grid>
                 </TabItem>
             </TabControl>

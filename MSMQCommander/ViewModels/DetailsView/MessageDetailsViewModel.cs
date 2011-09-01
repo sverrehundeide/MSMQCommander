@@ -5,6 +5,7 @@ using MSMQCommander.Contex;
 using MSMQCommander.Events;
 using MsmqLib;
 using Message = System.Messaging.Message;
+using MSMQCommander.Utils;
 
 namespace MSMQCommander.ViewModels
 {
@@ -16,11 +17,11 @@ namespace MSMQCommander.ViewModels
         private readonly MessageQueue _messageQueue;
         private Message _message;
 
-        public MessageDetailsViewModel(CurrentSelectedQueueContext currentSelectedQueueContext, IEventAggregator _eventAggregator, IQueueService queueService)
+        public MessageDetailsViewModel(CurrentSelectedQueueContext currentSelectedQueueContext, IEventAggregator eventAggregator, IQueueService queueService)
         {
             _queueService = queueService;
             _messageQueue = currentSelectedQueueContext.CurrentSelectedMessageQueue;
-            _eventAggregator.Subscribe(this);
+            eventAggregator.Subscribe(this);
         }
 
         public void Handle(MessageSelectedEvent messageSelectedEvent)
@@ -35,16 +36,7 @@ namespace MSMQCommander.ViewModels
         private void SetCurrentMessage(Message fullMessage)
         {
             _message = fullMessage;
-            NotifyOfPropertyChange(() => BodySize);
-            NotifyOfPropertyChange(() => Body);
-            NotifyOfPropertyChange(() => DestinationQueue);
-            NotifyOfPropertyChange(() => ResponseQueue);
-            NotifyOfPropertyChange(() => AdministrationQueue);
-            NotifyOfPropertyChange(() => TransactionStatusQueue);
-            NotifyOfPropertyChange(() => ArrivedTime);
-            NotifyOfPropertyChange(() => SentTime);
-            NotifyOfPropertyChange(() => TimeToBeReceived);
-            NotifyOfPropertyChange(() => TimeToReachQueue);
+            Refresh();
         }
 
         public string BodySize
@@ -156,6 +148,94 @@ namespace MSMQCommander.ViewModels
                     return string.Empty;
 
                 return _message.TimeToReachQueue.ToString("G");
+            }
+        }
+
+        public string Priority
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.Priority.ToString();
+            }
+        }
+
+        public string UseDeadLetterQueue
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.UseDeadLetterQueue.ToYesNo();
+            }
+        }
+
+        public string UseJournalQueue
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.UseJournalQueue.ToYesNo();
+            }
+        }
+
+        public string Recoverable
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.Recoverable.ToYesNo();
+            }
+        }
+
+        public string UseAuthentication
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.UseAuthentication.ToYesNo();
+            }
+        }
+
+        public string UseEncryption
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.UseEncryption.ToYesNo();
+            }
+        }
+
+        public string UseTracing
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.UseTracing.ToYesNo();
+            }
+        }
+
+        public string MessageType
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.MessageType.ToString();
             }
         }
     }
