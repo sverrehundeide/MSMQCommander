@@ -1,11 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
 using MSMQCommander.Events;
-using MSMQCommander.ViewModels;
 using MSMQCommander.Views;
 using System.Linq;
+using Action = System.Action;
 
 namespace MSMQCommander 
 {
@@ -42,10 +44,16 @@ namespace MSMQCommander
             else
             {
                 var newDetailsView = new DetailsView();
+                newDetailsView.CloseAction = OnViewClosed;
                 DetailsViews.Add(newDetailsView);
                 NotifyOfPropertyChange(() => DetailsViews);
                 newDetailsView.Activate();
             }
+        }
+
+        private void OnViewClosed(DetailsView view)
+        {
+            DetailsViews.Remove(view);
         }
 
         private DetailsView GetExistingViewForQueue(MessageQueue queue)
