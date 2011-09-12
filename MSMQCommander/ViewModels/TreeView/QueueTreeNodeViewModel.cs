@@ -1,4 +1,5 @@
-﻿using System.Messaging;
+﻿using System.Collections.Generic;
+using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Events;
 using MSMQCommander.Utils;
@@ -51,6 +52,16 @@ namespace MSMQCommander.ViewModels
                     }
                 }
             }
+        }
+
+        public bool Equals(MessageQueue x)
+        {
+            return _messageQueue.Path == x.Path;
+        }
+
+        public QueueClosedEvent CreateQueueClosedEvent()
+        {
+            return new QueueClosedEvent(_messageQueue);
         }
     }
 }

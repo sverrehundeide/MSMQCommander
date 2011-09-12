@@ -1,10 +1,14 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Messaging;
+using Caliburn.Micro;
 using MSMQCommander.Contex;
+using MSMQCommander.Events;
 using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
-    public class QueueTypeTreeNodeViewModel : PropertyChangedBase
+    public class QueueTypeTreeNodeViewModel : PropertyChangedBase, IHandle<RefreshQueuesEvent>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueService _queueService;
@@ -24,6 +28,8 @@ namespace MSMQCommander.ViewModels
             IsSelected = true;
 
             ReadAndInitializeChildQueues();
+
+            _eventAggregator.Subscribe(this);
         }
 
         private void ReadAndInitializeChildQueues()
@@ -43,5 +49,49 @@ namespace MSMQCommander.ViewModels
 
         public bool IsExpanded { get; set; }
         public bool IsSelected { get; set; }
+
+        public void Handle(RefreshQueuesEvent message)
+        {
+            var refreshedQueueList = _queueService.GetPrivateQueues(_computerName);
+            AddNewQueues(refreshedQueueList);
+            RemoveDeletedQueues(refreshedQueueList);
+        }
+
+        private void AddNewQueues(IEnumerable<MessageQueue> refreshedQueueList)
+        {
+            var newQueuesAdded = false;
+            foreach (var queue in refreshedQueueList)
+            {
+                if (Children.Any(existingChildQueue => existingChildQueue.Equals(queue)))
+                {
+                    continue;
+                }
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue));
+                newQueuesAdded = true;
+            }
+            if (newQueuesAdded)
+            {
+                NotifyOfPropertyChange(() => Children);
+            }
+        }
+
+        private void RemoveDeletedQueues(MessageQueue[] refreshedQueueList)
+        {
+            var nodesToRemoveFromTree = new List<QueueTreeNodeViewModel>();
+            foreach (var existingChildQueue in Children)
+            {
+                if (refreshedQueueList.Any(refreshedQueue => existingChildQueue.Equals(refreshedQueue)))
+                {
+                    continue;
+                }
+                _eventAggregator.Publish(existingChildQueue.CreateQueueClosedEvent());
+                nodesToRemoveFromTree.Add(existingChildQueue);
+            }
+            if (nodesToRemoveFromTree.Any())
+            {
+                Children.RemoveRange(nodesToRemoveFromTree);
+                NotifyOfPropertyChange(() => Children);
+            }
+        }
     }
 }

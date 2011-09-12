@@ -22,5 +22,10 @@ namespace MSMQCommander.ViewModels
                 return _messageQueue.QueueName;
             }
         }
+
+        public bool Equals(MessageQueue queue)
+        {
+            return queue.Path == _messageQueue.Path;
+        }
     }
 }

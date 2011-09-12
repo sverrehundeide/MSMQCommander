@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,7 +74,9 @@
     <Compile Include="Contex\CurrentSelectedQueueContext.cs" />
     <Compile Include="Contex\QueueConnectionContext.cs" />
     <Compile Include="Events\MessageSelectedEvent.cs" />
+    <Compile Include="Events\QueueClosedEvent.cs" />
     <Compile Include="Events\QueueSelectedEvent.cs" />
+    <Compile Include="Events\RefreshQueuesEvent.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />
     <Compile Include="Utils\MessageQueueExtensions.cs" />
@@ -163,6 +166,7 @@
       <Name>MsmqLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
