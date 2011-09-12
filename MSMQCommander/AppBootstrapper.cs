@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using Autofac;
 using MSMQCommander.Contex;
 using MsmqLib;
@@ -79,9 +80,9 @@ namespace MSMQCommander
 
         protected override void OnUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            base.OnUnhandledException(sender, e);
-
-            //TODO: 
+            //TODO: Logging + new view for showing exceptions
+            MessageBox.Show(e.Exception.ToString(), "Exception in MSMQ Commander", MessageBoxButton.OK, MessageBoxImage.Error); 
+            e.Handled = true;
         }
 	}
 }
