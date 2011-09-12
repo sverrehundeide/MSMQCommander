@@ -13,9 +13,9 @@
                       SelectedItem="{Binding Path=SelectedItem, Mode=OneWayToSource}"
                       AutoGenerateColumns="False" AlternatingRowBackground="Lavender">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Label" IsReadOnly="True" MinWidth="100" Binding="{Binding Path=Label}"/>
-                    <DataGridTextColumn Header="Sent time" MinWidth="80"  Binding="{Binding Path=SentTime}"/>
-                    <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id}"/>
+                    <DataGridTextColumn Header="Label" IsReadOnly="True" MinWidth="100" Binding="{Binding Path=Label, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Sent time" MinWidth="80"  Binding="{Binding Path=SentTime, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id, Mode=OneWay}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
