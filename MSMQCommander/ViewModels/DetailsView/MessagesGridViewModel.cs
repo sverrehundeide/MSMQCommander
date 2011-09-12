@@ -7,7 +7,7 @@ using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
-    public class MessagesGridViewModel : PropertyChangedBase
+    public class MessagesGridViewModel : PropertyChangedBase, IHandle<RefreshQueuesEvent>
     {
         private readonly IQueueService _queueService;
         private readonly IEventAggregator _eventAggregator;
@@ -22,6 +22,7 @@ namespace MSMQCommander.ViewModels
             _messageQueue = selectedQueueContext.CurrentSelectedMessageQueue;
             Messages = new BindableCollection<MessageGridRowViewModel>();
             RefreshMessages();
+            _eventAggregator.Subscribe(this);
         }
 
         private void RefreshMessages()
@@ -41,5 +42,10 @@ namespace MSMQCommander.ViewModels
                 _eventAggregator.Publish(new MessageSelectedEvent(_messageQueue, value.Id));
             }
         }
-   }
+
+        public void Handle(RefreshQueuesEvent message)
+        {
+            RefreshMessages();
+        }
+    }
 }
