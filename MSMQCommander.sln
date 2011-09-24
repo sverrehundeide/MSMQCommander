@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsmqLib", "MsmqLib\MsmqLib.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsmqLib.Tests", "MsmqLib.Tests\MsmqLib.Tests.csproj", "{DCA22204-237B-47CD-8EE5-CFAB8EE4AE60}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectArtifacts", "ProjectArtifacts", "{877CFCEF-4BCF-4671-9F96-7D948A3D9666}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+		TODO.md = TODO.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

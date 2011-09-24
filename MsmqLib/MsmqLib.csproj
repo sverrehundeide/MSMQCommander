@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfoGlobal.cs">
+      <Link>Properties\AssemblyInfoGlobal.cs</Link>
+    </Compile>
     <Compile Include="Guard.cs" />
     <Compile Include="Mapping\MessageMapping.cs" />
     <Compile Include="MessageInfo.cs" />
