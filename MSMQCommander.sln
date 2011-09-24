@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectArtifacts", "Project
 		TODO.md = TODO.md
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MSMQCommanderSetup", "MSMQCommanderSetup\MSMQCommanderSetup.vdproj", "{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,12 @@ Global
 		{DCA22204-237B-47CD-8EE5-CFAB8EE4AE60}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DCA22204-237B-47CD-8EE5-CFAB8EE4AE60}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DCA22204-237B-47CD-8EE5-CFAB8EE4AE60}.Release|x86.ActiveCfg = Release|Any CPU
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Debug|Any CPU.ActiveCfg = Debug
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Debug|x86.ActiveCfg = Debug
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Release|Any CPU.ActiveCfg = Release
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Release|Mixed Platforms.ActiveCfg = Release
+		{39C7B0E0-87AA-4E93-ADA7-B100F15AB0D7}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
