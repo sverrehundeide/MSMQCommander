@@ -122,6 +122,7 @@
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />
     <Compile Include="Utils\MessageQueueExtensions.cs" />
+    <Compile Include="Utils\VersionInformation.cs" />
     <Compile Include="Utils\ViewContentsFormattingExtensions.cs" />
     <Compile Include="ViewModels\DetailsView\DetailsViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessageDetailsViewModel.cs" />

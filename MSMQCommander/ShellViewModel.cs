@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Messaging;
-using System.Reflection;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
 using MSMQCommander.Events;
+using MSMQCommander.Utils;
 using MSMQCommander.Views;
 using System.Linq;
-using Action = System.Action;
 
 namespace MSMQCommander 
 {
@@ -81,8 +78,9 @@ namespace MSMQCommander
         {
             get
             {
-                var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
-                return string.Format("MSMQ Commander ({0})", assemblyVersion);
+                return string.Format("MSMQ Commander (version {0}, {1})", 
+                    VersionInformation.GetMajorAndMinorVersion(), 
+                    VersionInformation.GetBuildDate().ToShortDateString());
             }
         }
     }
