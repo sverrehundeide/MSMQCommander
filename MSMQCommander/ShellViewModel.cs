@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Messaging;
+using System.Reflection;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
 using MSMQCommander.Events;
@@ -74,6 +75,15 @@ namespace MSMQCommander
                 return;
             existingViewForQueue.Close();
             DetailsViews.Remove(existingViewForQueue);
+        }
+
+        public string Title
+        {
+            get
+            {
+                var assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                return string.Format("MSMQ Commander ({0})", assemblyVersion);
+            }
         }
     }
 }
