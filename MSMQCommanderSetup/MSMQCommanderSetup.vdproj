@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6280B18E17AC0DF8117CDEBAE5F5BA34"
+        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -57,8 +63,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_DA51D54463E085C1D9ACC3D008435DE2"
-        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
+        "MsmKey" = "8:_DC57771664814A6195CF1986E7C46653"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,13 +76,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
+        "OwnerKey" = "8:_6280B18E17AC0DF8117CDEBAE5F5BA34"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DA51D54463E085C1D9ACC3D008435DE2"
+        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -180,6 +186,37 @@
                     }
                 }
             "SourcePath" = "8:Autofac.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6280B18E17AC0DF8117CDEBAE5F5BA34"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MsmqLib, Version=0.1.4285.36146, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_6280B18E17AC0DF8117CDEBAE5F5BA34"
+                    {
+                    "Name" = "8:MsmqLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MsmqLib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
@@ -321,21 +358,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DA51D54463E085C1D9ACC3D008435DE2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DC57771664814A6195CF1986E7C46653"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MsmqLib, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_DA51D54463E085C1D9ACC3D008435DE2"
-                    {
-                    "Name" = "8:MsmqLib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:MsmqLib.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\MSMQCommander\\Images\\AppIcon.ico"
+            "TargetName" = "8:AppIcon.ico"
             "Tag" = "8:"
             "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
             "Condition" = "8:"
@@ -349,7 +375,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }
@@ -420,7 +446,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MSMQ Commander"
         "ProductCode" = "8:{E7D62453-E84A-422D-B49A-D11DE3C4799E}"
-        "PackageCode" = "8:{1C50EA57-4E60-41E7-95A8-12526E2B16AE}"
+        "PackageCode" = "8:{D68C307C-5919-4C0D-B28A-2291582148BA}"
         "UpgradeCode" = "8:{5B45E85A-5BC2-4E71-9176-B2242E8061FF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -551,7 +577,7 @@
             "Target" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
             "Folder" = "8:_3CE615D186D44D529148304126ACDF3F"
             "WorkingFolder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
-            "Icon" = "8:"
+            "Icon" = "8:_DC57771664814A6195CF1986E7C46653"
             "Feature" = "8:"
             }
         }
@@ -955,7 +981,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
             {
-            "SourcePath" = "8:..\\MSMQCommander\\obj\\x86\\Debug\\MSMQCommander.exe"
+            "SourcePath" = "8:..\\MSMQCommander\\obj\\x86\\Release\\MSMQCommander.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"

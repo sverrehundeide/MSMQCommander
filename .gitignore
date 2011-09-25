@@ -8,6 +8,7 @@ _ReSharper.*
 *.cache
 *~
 *.swp
+*.msi
 /Build
 NDependOut
 TestResult
