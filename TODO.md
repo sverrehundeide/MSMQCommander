@@ -3,13 +3,13 @@ TODO
 
 Next release
 ------------
-
+* View journal queue as child nodes in queue tree view
+* View Number of messages in queueu behind queue name in tree view
+* Switch journaling on/off
 
 Future release
 --------------
 * Connect to remote queues
-* View journal queue
-* Switch journaling on/off
 * Context menu option for purging messages in queue
 * Context menu option for delete messages in grid view
 * Automatic refresh of messages
