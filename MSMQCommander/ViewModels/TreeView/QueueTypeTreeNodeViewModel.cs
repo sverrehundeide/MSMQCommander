@@ -38,7 +38,7 @@ namespace MSMQCommander.ViewModels
             var privateQueues = _queueService.GetPrivateQueues(_computerName);
             foreach (var queue in privateQueues)
             {
-                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue));
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService));
             }
         }
 
@@ -66,7 +66,7 @@ namespace MSMQCommander.ViewModels
                 {
                     continue;
                 }
-                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue));
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService));
                 newQueuesAdded = true;
             }
             if (newQueuesAdded)

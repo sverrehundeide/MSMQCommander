@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Messaging;
 
 namespace MsmqLib.Tests
 {
@@ -34,6 +35,13 @@ namespace MsmqLib.Tests
             {
                 queueService.DeleteQueue(queue.Path);
             }
+        }
+
+        public static void DeletePrivateQueueIfExists(string computerName, string queueName)
+        {
+            var queuePath = CreateQueuePathForPrivateQueue(computerName, queueName);
+            if (MessageQueue.Exists(queuePath))
+                new QueueService().DeleteQueue(queuePath);
         }
     }
 }

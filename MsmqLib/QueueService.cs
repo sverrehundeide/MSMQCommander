@@ -15,6 +15,7 @@ namespace MsmqLib
         void ClearMessages(string queuePath, string labelFilter = null);
         IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null);
         Message GetFullMessage(MessageQueue messageQueue, string messageId);
+        int GetMessageCount(MessageQueue messageQueue);
     }
 
     public class QueueService : IQueueService
@@ -96,6 +97,18 @@ namespace MsmqLib
             messageQueue.MessageReadPropertyFilter.SetAll();
             messageQueue.MessageReadPropertyFilter.SourceMachine = true;
             return messageQueue.PeekById(messageId);
+        }
+
+        public int GetMessageCount(MessageQueue messageQueue)
+        {
+            messageQueue.MessageReadPropertyFilter.ClearAll();
+            var enumerator = messageQueue.GetMessageEnumerator2();
+            var messageCount = 0;
+            while (enumerator.MoveNext())
+            {
+                messageCount++;
+            }
+            return messageCount;
         }
 
         public void ClearMessages(string queuePath, string labelFilter = null)

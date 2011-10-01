@@ -13,7 +13,7 @@ namespace MsmqLib.Tests.QueueServiceTests
 
         public override void Cleanup()
         {
-            QueueTestHelper.CleanupPrivateTestQueues(ComputerName, NameOfNewQueue);
+            QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, NameOfNewQueue);
         }
 
         protected override void Arrange()

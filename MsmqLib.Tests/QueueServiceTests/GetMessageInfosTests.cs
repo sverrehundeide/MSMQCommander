@@ -18,8 +18,7 @@ namespace MsmqLib.Tests.QueueServiceTests
 
         public override void Cleanup()
         {
-            var queuePath = QueueTestHelper.CreateQueuePathForPrivateQueue(ComputerName, TestQueueName);
-            new QueueService().ClearMessages(queuePath, TestMessagesLabel);
+           QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, TestQueueName);
         }
 
         protected override void Arrange()

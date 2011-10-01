@@ -4,11 +4,11 @@ MSMQ Commander is a Windows application for management of MSMQ messages.
 
 Downloads
 =========
-Downloads are available here: <https://github.com/sverrehundeide/MSMQCommander/archives/master>
+Installation packages are available in the [download page](https://github.com/sverrehundeide/MSMQCommander/archives/master)
 
 Release history
 ===============
-V 0.1 (alpha) Released 15th September 2011
+2011-09-25: Version 0.1
 
-See <CHANGELOG.md> for details about features per release.
+See [CHANGELOG.md](https://github.com/sverrehundeide/MSMQCommander/blob/master/CHANGELOG.md) for details about features per release.
 
