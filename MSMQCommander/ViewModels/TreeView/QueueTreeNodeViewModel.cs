@@ -30,10 +30,13 @@ namespace MSMQCommander.ViewModels
         {
             get
             {
-                return string.Format("{0} ({1})",
-                    _messageQueue.QueueNameExcludingQueueType(), 
-                    _queueService.GetMessageCount(_messageQueue));
+                return _messageQueue.QueueNameExcludingQueueType();
             }
+        }
+
+        public string MessageCount
+        {
+            get { return string.Format(" ({0})", _queueService.GetMessageCount(_messageQueue).ToString()); }
         }
 
         public bool IsExpanded
@@ -78,7 +81,7 @@ namespace MSMQCommander.ViewModels
 
         public void Handle(RefreshQueuesEvent message)
         {
-            NotifyOfPropertyChange(() => Name);
+            NotifyOfPropertyChange(() => MessageCount);
         }
     }
 }
