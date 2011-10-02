@@ -1,6 +1,6 @@
 # Changelog
 
-## V 0.1 (Alpha release)
+## 2011-09-25: Version 0.1 (Alpha release)
 * View private queues on local computer
 * View messages in queues
 * View properties for a selected message

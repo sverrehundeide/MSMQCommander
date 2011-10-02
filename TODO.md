@@ -6,6 +6,7 @@ Next release
 * View journal queue as child nodes in queue tree view
 * View Number of messages in queueu behind queue name in tree view
 * Switch journaling on/off
+* Purge messages in queue
 
 Future release
 --------------

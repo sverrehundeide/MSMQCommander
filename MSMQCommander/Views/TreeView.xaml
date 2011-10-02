@@ -23,6 +23,17 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text="{Binding MessageCount}" Foreground="RoyalBlue"/>
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" IsHitTestVisible="False" />
+                                    <Separator IsTabStop="False" IsHitTestVisible="False" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Use journaling" Width="100" VerticalAlignment="Center" />
+                                        <TextBlock Width="10" />
+                                        <CheckBox IsChecked="{Binding IsJournalingEnabled}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>

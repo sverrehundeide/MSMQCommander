@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Messaging;
+﻿using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Events;
 using MSMQCommander.Utils;
@@ -69,6 +68,12 @@ namespace MSMQCommander.ViewModels
             }
         }
 
+        public bool IsJournalingEnabled
+        {
+            get { return _messageQueue.UseJournalQueue; }
+            set { _messageQueue.UseJournalQueue = value; }
+        }
+
         public bool Equals(MessageQueue x)
         {
             return _messageQueue.Path == x.Path;
@@ -81,7 +86,7 @@ namespace MSMQCommander.ViewModels
 
         public void Handle(RefreshQueuesEvent message)
         {
-            NotifyOfPropertyChange(() => MessageCount);
+            Refresh();
         }
     }
 }
