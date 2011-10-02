@@ -8,7 +8,7 @@ namespace MsmqLib
     public interface IQueueService
     {
         MessageQueue[] GetPrivateQueues(string computerName);
-        void CreateQueue(string queuePath);
+        MessageQueue CreateQueue(string queuePath);
         void DeleteQueue(string queuePath);
         void CreateMessage(string queuePath, object body, string label = null);
         IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null);
@@ -16,6 +16,7 @@ namespace MsmqLib
         IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null);
         Message GetFullMessage(MessageQueue messageQueue, string messageId);
         int GetMessageCount(MessageQueue messageQueue);
+        MessageQueue GetJournalQueue(MessageQueue messageQueue);
     }
 
     public class QueueService : IQueueService
@@ -25,10 +26,12 @@ namespace MsmqLib
             return MessageQueue.GetPrivateQueuesByMachine(computerName);
         }
 
-        public void CreateQueue(string queuePath)
+        public MessageQueue CreateQueue(string queuePath)
         {
             if (!MessageQueue.Exists(queuePath))
-                MessageQueue.Create(queuePath);
+                return MessageQueue.Create(queuePath);
+
+            return new MessageQueue(queuePath);
         }
 
         public void DeleteQueue(string queuePath)
@@ -109,6 +112,12 @@ namespace MsmqLib
                 messageCount++;
             }
             return messageCount;
+        }
+
+        public MessageQueue GetJournalQueue(MessageQueue messageQueue)
+        {
+            string journalPath = messageQueue.Path + ";JOURNAL";
+            return new MessageQueue(journalPath);
         }
 
         public void ClearMessages(string queuePath, string labelFilter = null)

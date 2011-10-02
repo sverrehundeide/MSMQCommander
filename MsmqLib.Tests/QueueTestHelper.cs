@@ -5,17 +5,17 @@ namespace MsmqLib.Tests
 {
     static internal class QueueTestHelper
     {
-        public static void CreatePrivateQueue(string computerName, string testQueuePrefix, int queueSequenceNumber)
+        public static MessageQueue CreatePrivateQueue(string computerName, string testQueuePrefix, int queueSequenceNumber)
         {
             var queueName = testQueuePrefix + queueSequenceNumber;
-            CreatePrivateQueue(computerName, queueName);
+            return CreatePrivateQueue(computerName, queueName);
         }
 
-        public static void CreatePrivateQueue(string computerName, string queueName)
+        public static MessageQueue CreatePrivateQueue(string computerName, string queueName)
         {
             var queuePath = CreateQueuePathForPrivateQueue(computerName, queueName);
             var queueService = new QueueService();
-            queueService.CreateQueue(queuePath);
+            return queueService.CreateQueue(queuePath);
         }
 
         public static string CreateQueuePathForPrivateQueue(string computerName, string queueName)

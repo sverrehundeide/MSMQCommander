@@ -129,6 +129,7 @@
     <Compile Include="ViewModels\DetailsView\MessagesGridViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessageGridRowViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
+    <Compile Include="ViewModels\TreeView\JournalQueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />

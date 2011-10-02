@@ -1,6 +1,7 @@
 ﻿using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
+using MSMQCommander.Utils;
 
 namespace MSMQCommander.ViewModels
 {
@@ -19,7 +20,7 @@ namespace MSMQCommander.ViewModels
             {
                 if (_messageQueue == null)
                     return string.Empty;
-                return _messageQueue.QueueName;
+                return _messageQueue.GetQueueNameIncludingQueueType();
             }
         }
 
