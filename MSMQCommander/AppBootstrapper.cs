@@ -2,6 +2,7 @@
 using System.Windows;
 using Autofac;
 using MSMQCommander.Contex;
+using MSMQCommander.Dialogs;
 using MsmqLib;
 
 namespace MSMQCommander
@@ -43,6 +44,7 @@ namespace MSMQCommander
 		        .InstancePerLifetimeScope();
 
 		    builder.RegisterType<QueueService>().As<IQueueService>();
+		    builder.RegisterType<DialogService>().As<IDialogService>();
 
 		    builder.Register(c => new QueueConnectionContext {ComputerName = "."})
 		        .AsSelf()

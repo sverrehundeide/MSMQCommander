@@ -1,6 +1,7 @@
 ﻿using System.Messaging;
 using System.Windows;
 using Caliburn.Micro;
+using MSMQCommander.Dialogs;
 using MSMQCommander.Events;
 using MSMQCommander.Utils;
 using MsmqLib;
@@ -14,16 +15,19 @@ namespace MSMQCommander.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly MessageQueue _messageQueue;
         private readonly IQueueService _queueService;
+        private readonly IDialogService _dialogService;
         private bool _isExpanded;
         private bool _isSelected;
 
         public BindableCollection<JournalQueueTreeNodeViewModel> Children { get; private set; }
 
-        public QueueTreeNodeViewModel(IEventAggregator eventAggregator, MessageQueue messageQueue, IQueueService queueService)
+        public QueueTreeNodeViewModel(IEventAggregator eventAggregator, MessageQueue messageQueue, 
+            IQueueService queueService, IDialogService dialogService)
         {
             _eventAggregator = eventAggregator;
             _messageQueue = messageQueue;
             _queueService = queueService;
+            _dialogService = dialogService;
 
             ReadAndInitializeJournalQueue();
 
@@ -50,8 +54,12 @@ namespace MSMQCommander.ViewModels
             get { return string.Format(" ({0})", _queueService.GetMessageCount(_messageQueue).ToString()); }
         }
 
-
         public Visibility IsJournalingTogglingContextMenuVisible
+        {
+            get { return Visibility.Visible; }
+        }
+
+        public Visibility IsPurgeMessagesContextMenuVisible
         {
             get { return Visibility.Visible; }
         }
@@ -86,10 +94,15 @@ namespace MSMQCommander.ViewModels
             }
         }
 
-        public bool IsJournalingEnabled
+        public string ToggleJournalingCaption
         {
-            get { return _messageQueue.UseJournalQueue; }
-            set { _messageQueue.UseJournalQueue = value; }
+            get { return _messageQueue.UseJournalQueue ? "Disable journaling" : "Enable journaling"; }
+        }
+
+        public void ToggleJournaling()
+        {
+            _messageQueue.UseJournalQueue = !_messageQueue.UseJournalQueue;
+            NotifyOfPropertyChange(() => ToggleJournalingCaption);
         }
 
         public bool Equals(MessageQueue x)
@@ -105,6 +118,16 @@ namespace MSMQCommander.ViewModels
         public void Handle(RefreshQueuesEvent message)
         {
             Refresh();
+        }
+
+        public void PurgeMessages()
+        {
+            var question = string.Format("Delete all messages in the queue {0}?", Name);
+            if (MessageBoxResult.Yes == _dialogService.AskQuestion(question, "Delete messages", MessageBoxButton.YesNo))
+            {
+                _queueService.PurgeMessages(_messageQueue);
+                _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
         }
     }
 }

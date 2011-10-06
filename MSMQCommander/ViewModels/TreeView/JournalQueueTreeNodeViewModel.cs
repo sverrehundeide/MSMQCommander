@@ -36,7 +36,12 @@ namespace MSMQCommander.ViewModels
 
         public Visibility IsJournalingTogglingContextMenuVisible
         {
-            get { return Visibility.Hidden; }
+            get { return Visibility.Collapsed; }
+        }
+
+        public Visibility IsPurgeMessagesContextMenuVisible
+        {
+            get { return Visibility.Visible; }
         }
 
         public bool IsSelected

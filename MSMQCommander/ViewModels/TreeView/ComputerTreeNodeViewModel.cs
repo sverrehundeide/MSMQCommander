@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 using MSMQCommander.Contex;
 
 namespace MSMQCommander.ViewModels
@@ -34,5 +35,10 @@ namespace MSMQCommander.ViewModels
 
         public bool IsSelected { get; set; }
         public bool IsExpanded { get; set; }
+
+        public Visibility ContextMenuVisibility
+        {
+            get { return Visibility.Collapsed; }
+        }
     }
 }

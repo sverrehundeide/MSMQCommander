@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
+using System.Windows;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
+using MSMQCommander.Dialogs;
 using MSMQCommander.Events;
 using MsmqLib;
 
@@ -12,15 +14,18 @@ namespace MSMQCommander.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueService _queueService;
+        private readonly IDialogService _dialogService;
         private readonly string _computerName;
         private readonly string _queueType;
 
         public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; }
 
-        public QueueTypeTreeNodeViewModel(IEventAggregator eventAggregator, IQueueService queueService, QueueConnectionContext queueConnectionContext)
+        public QueueTypeTreeNodeViewModel(IEventAggregator eventAggregator, IQueueService queueService, 
+            QueueConnectionContext queueConnectionContext, IDialogService dialogService)
         {
             _eventAggregator = eventAggregator;
             _queueService = queueService;
+            _dialogService = dialogService;
             _computerName = queueConnectionContext.ComputerName;
             _queueType = "Private queues"; //TODO: Reuse class to support public queues
 
@@ -38,7 +43,7 @@ namespace MSMQCommander.ViewModels
             var privateQueues = _queueService.GetPrivateQueues(_computerName);
             foreach (var queue in privateQueues)
             {
-                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService));
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService, _dialogService));
             }
         }
 
@@ -66,7 +71,7 @@ namespace MSMQCommander.ViewModels
                 {
                     continue;
                 }
-                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService));
+                Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService, _dialogService));
                 newQueuesAdded = true;
             }
             if (newQueuesAdded)
@@ -92,6 +97,11 @@ namespace MSMQCommander.ViewModels
                 Children.RemoveRange(nodesToRemoveFromTree);
                 NotifyOfPropertyChange(() => Children);
             }
+        }
+
+        public Visibility ContextMenuVisibility
+        {
+            get { return Visibility.Collapsed; }
         }
     }
 }

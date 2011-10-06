@@ -17,6 +17,7 @@ namespace MsmqLib
         Message GetFullMessage(MessageQueue messageQueue, string messageId);
         int GetMessageCount(MessageQueue messageQueue);
         MessageQueue GetJournalQueue(MessageQueue messageQueue);
+        void PurgeMessages(MessageQueue messageQueue);
     }
 
     public class QueueService : IQueueService
@@ -158,6 +159,11 @@ namespace MsmqLib
                 messageEnumerator.Close();
             }
             queue.Close();
+        }
+
+        public void PurgeMessages(MessageQueue messageQueue)
+        {
+            messageQueue.Purge();
         }
     }
 }
