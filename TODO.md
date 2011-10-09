@@ -3,19 +3,16 @@ TODO
 
 Next release
 ------------
-* View journal queue as child nodes in queue tree view
-* View Number of messages in queueu behind queue name in tree view
-* Switch journaling on/off
-* Purge messages in queue
+* Insert new message to queue (body serialized as text only)
+* Copying message to file
+* Importing message from file
+* Connect to remote queues
 
 Future release
 --------------
-* Connect to remote queues
-* Context menu option for purging messages in queue
 * Context menu option for delete messages in grid view
 * Automatic refresh of messages
-* Enable copying message to file
-* Enable importing message from file
+* Show message extension data
 * Option for inserting a new message to a queue (with text field for body contents)
 * Queue ping (send message with a correlation id and receive it back with ReceiveByCorrelationId)
 * Queue path builder for direct format name, private queues (enter machine name, protocol, http/https)

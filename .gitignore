@@ -12,3 +12,4 @@ _ReSharper.*
 /Build
 NDependOut
 TestResult
+*.exe
