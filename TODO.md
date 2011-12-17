@@ -20,3 +20,4 @@ Future release
 * Text search in message body
 * Filter messages based on label text
 * Filter messages based on body contents
+* Change message contents and resubmit message to queue (text serialization only)
