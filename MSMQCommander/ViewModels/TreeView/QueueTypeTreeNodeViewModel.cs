@@ -10,12 +10,15 @@ using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
-    public class QueueTypeTreeNodeViewModel : PropertyChangedBase, IHandle<RefreshQueuesEvent>
+    public class QueueTypeTreeNodeViewModel : 
+        PropertyChangedBase,
+        IHandle<QueueConnectionChangedEvent>,
+        IHandle<RefreshQueuesEvent>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueService _queueService;
+        private readonly QueueConnectionContext _queueConnectionContext;
         private readonly IDialogService _dialogService;
-        private readonly string _computerName;
         private readonly string _queueType;
 
         public BindableCollection<QueueTreeNodeViewModel> Children { get; private set; }
@@ -25,8 +28,8 @@ namespace MSMQCommander.ViewModels
         {
             _eventAggregator = eventAggregator;
             _queueService = queueService;
+            _queueConnectionContext = queueConnectionContext;
             _dialogService = dialogService;
-            _computerName = queueConnectionContext.ComputerName;
             _queueType = "Private queues"; //TODO: Reuse class to support public queues
 
             IsExpanded = true;
@@ -40,7 +43,7 @@ namespace MSMQCommander.ViewModels
         private void ReadAndInitializeChildQueues()
         {
             Children = new BindableCollection<QueueTreeNodeViewModel>();
-            var privateQueues = _queueService.GetPrivateQueues(_computerName);
+            var privateQueues = _queueService.GetPrivateQueues(_queueConnectionContext.ComputerName);
             foreach (var queue in privateQueues)
             {
                 Children.Add(new QueueTreeNodeViewModel(_eventAggregator, queue, _queueService, _dialogService));
@@ -55,9 +58,19 @@ namespace MSMQCommander.ViewModels
         public bool IsExpanded { get; set; }
         public bool IsSelected { get; set; }
 
+        public void Handle(QueueConnectionChangedEvent queueConnectionChangedEvent)
+        {
+            RefreshQueues();
+        }
+
         public void Handle(RefreshQueuesEvent message)
         {
-            var refreshedQueueList = _queueService.GetPrivateQueues(_computerName);
+            RefreshQueues();
+        }
+
+        private void RefreshQueues()
+        {
+            var refreshedQueueList = _queueService.GetPrivateQueues(_queueConnectionContext.ComputerName);
             AddNewQueues(refreshedQueueList);
             RemoveDeletedQueues(refreshedQueueList);
         }

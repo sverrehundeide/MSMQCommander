@@ -2,6 +2,7 @@
 using System.Messaging;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
+using MSMQCommander.Dialogs;
 using MSMQCommander.Events;
 using MSMQCommander.Utils;
 using MSMQCommander.Views;
@@ -17,12 +18,14 @@ namespace MSMQCommander
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly CurrentSelectedQueueContext _currentSelectedQueueContext;
+        private readonly IDialogService _dialogService;
         private readonly ObservableCollection<DetailsView> _detailsViews = new ObservableCollection<DetailsView>();
 
-        public ShellViewModel(IEventAggregator eventAggregator, CurrentSelectedQueueContext currentSelectedQueueContext)
+        public ShellViewModel(IEventAggregator eventAggregator, CurrentSelectedQueueContext currentSelectedQueueContext, IDialogService dialogService)
         {
             _eventAggregator = eventAggregator;
             _currentSelectedQueueContext = currentSelectedQueueContext;
+            _dialogService = dialogService;
             _eventAggregator.Subscribe(this);
         }
 
@@ -63,6 +66,11 @@ namespace MSMQCommander
         public void RefreshQueues()
         {
             _eventAggregator.Publish(new RefreshQueuesEvent());
+        }
+
+        public void ConnectToComputer()
+        {
+            _dialogService.ConnectToComputer();
         }
 
         public void Handle(QueueClosedEvent queueClosedEvent)

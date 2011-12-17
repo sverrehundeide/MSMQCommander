@@ -117,6 +117,7 @@
     <Compile Include="Dialogs\DialogService.cs" />
     <Compile Include="Events\MessageSelectedEvent.cs" />
     <Compile Include="Events\QueueClosedEvent.cs" />
+    <Compile Include="Events\QueueConnectionChangedEvent.cs" />
     <Compile Include="Events\QueueSelectedEvent.cs" />
     <Compile Include="Events\RefreshQueuesEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,11 +130,15 @@
     <Compile Include="ViewModels\DetailsView\MessageDetailsViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessagesGridViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessageGridRowViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ConfigureConnectionViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\JournalQueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTypeTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\TreeViewModel.cs" />
+    <Compile Include="Views\Dialogs\ConfigureConnectionView.xaml.cs">
+      <DependentUpon>ConfigureConnectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessageDetailsView.xaml.cs">
       <DependentUpon>MessageDetailsView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +168,10 @@
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\ConfigureConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MessageDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -234,6 +243,7 @@
   <ItemGroup>
     <Resource Include="Images\AppIcon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

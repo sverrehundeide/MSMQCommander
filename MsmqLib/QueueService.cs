@@ -18,6 +18,7 @@ namespace MsmqLib
         int GetMessageCount(MessageQueue messageQueue);
         MessageQueue GetJournalQueue(MessageQueue messageQueue);
         void PurgeMessages(MessageQueue messageQueue);
+        bool TryConnect(string machineName, out string errorMessage);
     }
 
     public class QueueService : IQueueService
@@ -164,6 +165,21 @@ namespace MsmqLib
         public void PurgeMessages(MessageQueue messageQueue)
         {
             messageQueue.Purge();
+        }
+
+        public bool TryConnect(string machineName, out string errorMessage)
+        {
+            try
+            {
+                MessageQueue.GetPrivateQueuesByMachine(machineName);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
+            errorMessage = null;
+            return true;
         }
     }
 }

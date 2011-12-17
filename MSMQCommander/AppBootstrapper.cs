@@ -46,7 +46,7 @@ namespace MSMQCommander
 		    builder.RegisterType<QueueService>().As<IQueueService>();
 		    builder.RegisterType<DialogService>().As<IDialogService>();
 
-		    builder.Register(c => new QueueConnectionContext {ComputerName = "."})
+		    builder.RegisterType<QueueConnectionContext>()
 		        .AsSelf()
 		        .InstancePerLifetimeScope();
 
