@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Messaging;
 using MsmqLib.Mapping;
 
@@ -19,6 +20,7 @@ namespace MsmqLib
         MessageQueue GetJournalQueue(MessageQueue messageQueue);
         void PurgeMessages(MessageQueue messageQueue);
         bool TryConnect(string machineName, out string errorMessage);
+        bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage);
     }
 
     public class QueueService : IQueueService
@@ -172,6 +174,30 @@ namespace MsmqLib
             try
             {
                 MessageQueue.GetPrivateQueuesByMachine(machineName);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
+            errorMessage = null;
+            return true;
+        }
+
+        public bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage)
+        {
+            try
+            {
+                var message = GetFullMessage(messageQueue, messageId);
+                var reader = new StreamReader(message.BodyStream);
+                var fileStream = new FileStream(fileName, FileMode.Create);
+                int bufferValue;
+                while ((bufferValue = reader.Read()) != -1)
+                {
+                    fileStream.WriteByte((byte)bufferValue);
+                }
+                fileStream.Close();
+                reader.Close();
             }
             catch (Exception e)
             {

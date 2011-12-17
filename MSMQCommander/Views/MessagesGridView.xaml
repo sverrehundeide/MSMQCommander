@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="300" 
              cal:Bind.Model="MSMQCommander.ViewModels.MessagesGridViewModel">
@@ -17,6 +18,17 @@
                     <DataGridTextColumn Header="Sent time" MinWidth="80"  Binding="{Binding Path=SentTime, Mode=OneWay}"/>
                     <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id, Mode=OneWay}"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export message body..." IsEnabled="{Binding Path=IsExportMessageBodyEnabled, Mode=OneWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="ExportMessageBody"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </DockPanel>
     </Grid>
