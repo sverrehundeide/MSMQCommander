@@ -44,7 +44,7 @@ namespace MSMQCommander.ViewModels
                 _lastSelectedItem = value;
                 NotifyOfPropertyChange(() => IsExportMessageBodyEnabled);
 
-                if (value == null)
+                if (value == null || !Messages.Any())
                     return;
 
                 _eventAggregator.Publish(new MessageSelectedEvent(_messageQueue, value.Id));
@@ -66,11 +66,19 @@ namespace MSMQCommander.ViewModels
             _dialogService.ExportMessageBody(_messageQueue, _lastSelectedItem.Id);
         }
 
+        public void ImportMessageBody()
+        {
+            if (_dialogService.ImportMessageBody(_messageQueue))
+            {
+                _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
+        }
+
         public void CreateNewMessage()
         {
             if (_dialogService.CreateNewMessage(_messageQueue))
             {
-                RefreshMessages();
+                _eventAggregator.Publish(new RefreshQueuesEvent());
             }
         }
     }

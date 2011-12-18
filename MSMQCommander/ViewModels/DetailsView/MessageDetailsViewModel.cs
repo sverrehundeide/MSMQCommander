@@ -57,17 +57,7 @@ namespace MSMQCommander.ViewModels
                 if (_message == null)
                     return string.Empty;
 
-                //TODO: Improve this code:
-                string text;
-                if (_message.BodyType == 0)
-                {
-                    var reader = new StreamReader(_message.BodyStream);
-                    text = reader.ReadToEnd();
-                    return text;
-                }
-                _message.Formatter = new BinaryMessageFormatter();
-                text = (string) _message.Body;
-                return text;
+                return _message.GetMessageBodyAsString();
             }
         }
 

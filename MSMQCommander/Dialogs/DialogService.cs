@@ -15,6 +15,7 @@ namespace MSMQCommander.Dialogs
         void ConnectToComputer();
         void ShowError(string errorMessageFormat, params object[] args);
         void ExportMessageBody(MessageQueue messageQueue, string messageId);
+        bool ImportMessageBody(MessageQueue messageQueue);
         bool CreateNewMessage(MessageQueue messageQueue);
     }
 
@@ -63,6 +64,13 @@ namespace MSMQCommander.Dialogs
                     ShowError("Failed to export to file '{0}': {1}", filePath, errorMessage);
                 }
             }
+        }
+
+        public bool ImportMessageBody(MessageQueue messageQueue)
+        {
+            var viewModel = (ImportMessageBodyViewModel)ViewModelLocator.LocateForViewType(typeof(ImportMessageBodyView));
+            viewModel.Initialize(messageQueue);
+            return _windowManager.ShowDialog(viewModel) == true;
         }
 
         public bool CreateNewMessage(MessageQueue messageQueue)

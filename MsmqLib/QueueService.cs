@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Messaging;
+using System.Text;
+using System.Xml;
 using MsmqLib.Mapping;
 
 namespace MsmqLib
@@ -12,8 +14,9 @@ namespace MsmqLib
         MessageQueue CreateQueue(string queuePath);
         void DeleteQueue(string queuePath);
         void CreateMessage(string queuePath, object body, string label = null);
-        IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null);
+        bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null, bool useDeadLetterQueue = true);
         void ClearMessages(string queuePath, string labelFilter = null);
+        IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null);
         IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null);
         Message GetFullMessage(MessageQueue messageQueue, string messageId);
         int GetMessageCount(MessageQueue messageQueue);
@@ -21,7 +24,7 @@ namespace MsmqLib
         void PurgeMessages(MessageQueue messageQueue);
         bool TryConnect(string machineName, out string errorMessage);
         bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage);
-        bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null);
+        bool ImportMessageBody(MessageQueue messageQueue, string fileName, out string errorMessage, bool useDeadletterQueue = true);
     }
 
     public class QueueService : IQueueService
@@ -51,15 +54,19 @@ namespace MsmqLib
             var messageQueue = new MessageQueue(queuePath);
             string errorMessage;
             CreateMessage(messageQueue, body, out errorMessage, label);
+            messageQueue.Close();
         }
 
-        public bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null)
+        public bool CreateMessage(MessageQueue messageQueue, object bodyObject, out string errorMessage, string label = null, bool useDeadLetterQueue = true)
         {
             try
             {
-                var message = new Message(body, new BinaryMessageFormatter());
+                var body = GetXmlBodyObject(bodyObject);
+                var message = new Message(body, new XmlMessageFormatter())
+                                  {
+                                      UseDeadLetterQueue = useDeadLetterQueue
+                                  };
                 messageQueue.Send(message, (label ?? string.Empty));
-                messageQueue.Close();
             }
             catch (Exception e)
             {
@@ -69,6 +76,58 @@ namespace MsmqLib
             errorMessage = null;
             return true;
         }
+
+        private static object GetXmlBodyObject(object bodyString)
+        {
+            object body;
+            XmlDocument bodyXmlDocument;
+            if (bodyString is String &&
+                TryLoadXmlDocument((String)bodyString, out bodyXmlDocument))
+            {
+                body = bodyXmlDocument;
+            }
+            else
+            {
+                body = bodyString;
+            }
+            return body;
+        }
+
+        private static bool TryLoadXmlDocument(string bodyString, out XmlDocument bodyXmlDocument)
+        {
+            try
+            {
+                bodyXmlDocument = new XmlDocument();
+                bodyXmlDocument.LoadXml(bodyString);
+                return true;
+            }
+            catch (Exception)
+            {
+                bodyXmlDocument = null;
+                return false;
+            }
+        }
+
+        //public bool CreateMessageFromByteArray(MessageQueue messageQueue, byte[] body, out string errorMessage, string label = null, bool useDeadLetterQueue = true)
+        //{
+        //    try
+        //    {
+        //        var message = new Message();
+        //        message.Formatter = new BinaryMessageFormatter();
+        //        for (var i=0; i<body.Length; i++)
+        //        {
+        //            message.BodyStream.WriteByte(body[i]);
+        //        }
+        //        messageQueue.Send(message, (label ?? string.Empty));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        errorMessage = e.Message;
+        //        return false;
+        //    }
+        //    errorMessage = null;
+        //    return true;
+        //}
 
         public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)
         {
@@ -206,14 +265,13 @@ namespace MsmqLib
             try
             {
                 var message = GetFullMessage(messageQueue, messageId);
+                var messageBodyString = message.GetMessageBodyAsString();
                 var reader = new StreamReader(message.BodyStream);
-                var fileStream = new FileStream(fileName, FileMode.Create);
-                int bufferValue;
-                while ((bufferValue = reader.Read()) != -1)
+                using (var fileStream = new FileStream(fileName, FileMode.Create))
                 {
-                    fileStream.WriteByte((byte)bufferValue);
+                    byte[] messageAsByteArray = new UTF8Encoding(true).GetBytes(messageBodyString);
+                    fileStream.Write(messageAsByteArray, 0, messageAsByteArray.Length);
                 }
-                fileStream.Close();
                 reader.Close();
             }
             catch (Exception e)
@@ -223,6 +281,21 @@ namespace MsmqLib
             }
             errorMessage = null;
             return true;
+        }
+
+        public bool ImportMessageBody(MessageQueue messageQueue, string fileName, out string errorMessage, bool useDeadletterQueue = true)
+        {
+            try
+            {
+                var fileStream = File.OpenText(fileName);
+                var contentsString = fileStream.ReadToEnd();
+                return CreateMessage(messageQueue, contentsString, out errorMessage, null, useDeadletterQueue);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
         }
     }
 }

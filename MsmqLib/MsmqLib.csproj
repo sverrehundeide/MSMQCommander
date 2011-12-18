@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="Guard.cs" />
     <Compile Include="Mapping\MessageMapping.cs" />
+    <Compile Include="MessageExtensions.cs" />
     <Compile Include="MessageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueService.cs" />

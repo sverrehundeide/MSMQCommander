@@ -12,7 +12,7 @@
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Content="Queue:" ToolTip="The intended destination queue for a message"/>
+                <Label Grid.Column="0" Grid.Row="0" Content="Queue:" ToolTip="The destination queue for the message"/>
                 <TextBox Grid.Column="1" Text="{Binding Path=QueueName, Mode=OneWay}" IsReadOnly="True"/>
             </Grid>
             

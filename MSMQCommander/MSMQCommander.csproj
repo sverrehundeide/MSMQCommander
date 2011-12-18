@@ -132,6 +132,7 @@
     <Compile Include="ViewModels\DetailsView\MessageGridRowViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\ConfigureConnectionViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CreateNewMessageViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ImportMessageBodyViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\JournalQueueTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\QueueTreeNodeViewModel.cs" />
@@ -142,6 +143,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\CreateNewMessageView.xaml.cs">
       <DependentUpon>CreateNewMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ImportMessageBodyView.xaml.cs">
+      <DependentUpon>ImportMessageBodyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MessageDetailsView.xaml.cs">
       <DependentUpon>MessageDetailsView.xaml</DependentUpon>
@@ -178,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\CreateNewMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ImportMessageBodyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
