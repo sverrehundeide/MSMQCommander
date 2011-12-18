@@ -15,25 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0C0F624844C59F320276B0223B34CFD6"
-        "OwnerKey" = "8:_97E05883F2816384BB6F53097F0AAD80"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0C0F624844C59F320276B0223B34CFD6"
-        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3F6D986E285B0C321846FF68B816D09E"
-        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6280B18E17AC0DF8117CDEBAE5F5BA34"
         "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -41,6 +23,18 @@
         {
         "MsmKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7DED884C29E5068BB56758E51D4F2BCA"
+        "OwnerKey" = "8:_97E05883F2816384BB6F53097F0AAD80"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7DED884C29E5068BB56758E51D4F2BCA"
+        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DA51D54463E085C1D9ACC3D008435DE2"
+        "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
         "MsmSig" = "8:_UNDEFINED"
@@ -76,7 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6280B18E17AC0DF8117CDEBAE5F5BA34"
+        "OwnerKey" = "8:_DA51D54463E085C1D9ACC3D008435DE2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,7 +88,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0C0F624844C59F320276B0223B34CFD6"
+        "OwnerKey" = "8:_7DED884C29E5068BB56758E51D4F2BCA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -134,6 +134,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -201,37 +214,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0C0F624844C59F320276B0223B34CFD6"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0C0F624844C59F320276B0223B34CFD6"
-                    {
-                    "Name" = "8:System.Windows.Interactivity.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Windows.Interactivity.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3F6D986E285B0C321846FF68B816D09E"
             {
             "AssemblyRegister" = "3:1"
@@ -263,20 +245,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6280B18E17AC0DF8117CDEBAE5F5BA34"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7DED884C29E5068BB56758E51D4F2BCA"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:MsmqLib, Version=0.1.4299.39953, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6280B18E17AC0DF8117CDEBAE5F5BA34"
+                    "_7DED884C29E5068BB56758E51D4F2BCA"
                     {
-                    "Name" = "8:MsmqLib.dll"
+                    "Name" = "8:System.Windows.Interactivity.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:MsmqLib.dll"
+            "SourcePath" = "8:System.Windows.Interactivity.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
@@ -407,6 +389,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DA51D54463E085C1D9ACC3D008435DE2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MsmqLib, Version=0.3.4369.39196, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DA51D54463E085C1D9ACC3D008435DE2"
+                    {
+                    "Name" = "8:MsmqLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MsmqLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -474,15 +487,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MSMQ Commander"
-        "ProductCode" = "8:{E7D62453-E84A-422D-B49A-D11DE3C4799E}"
-        "PackageCode" = "8:{8FC414C1-3C03-4C9F-A9A7-B57543D7819E}"
+        "ProductCode" = "8:{251CDB9A-AD0C-4AAA-B5E3-FA293CDAA69F}"
+        "PackageCode" = "8:{167306A5-EA2D-422E-B704-69246E0FEB6C}"
         "UpgradeCode" = "8:{5B45E85A-5BC2-4E71-9176-B2242E8061FF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.1.0"
+        "ProductVersion" = "8:0.3.0"
         "Manufacturer" = "8:SolidApps"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1010,7 +1023,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7B8C50E4755C44E1A52F0F2ECBEF5F09"
             {
-            "SourcePath" = "8:..\\MSMQCommander\\obj\\x86\\Release\\MSMQCommander.exe"
+            "SourcePath" = "8:..\\MSMQCommander\\obj\\x86\\Debug\\MSMQCommander.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A3CF0E4F393849D1958698CA2DB8A44C"
