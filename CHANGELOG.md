@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2011-12-18: Version 0.3 (Alpha release)
+* Insert new message to queue (body serialized as text/xml only)
+* Copying message to file
+* Importing message from file
+* Connect to remote queues
+* Context menu option for delete messages in grid view
+
 2011-10-09: Version 0.2 (Alpha release)
 ---------------------------------------
 * View journal queue as child nodes in queue tree view
