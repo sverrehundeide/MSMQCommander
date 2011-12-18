@@ -2,6 +2,7 @@ Changelog
 =========
 
 2011-12-18: Version 0.3 (Alpha release)
+---------------------------------------
 * Insert new message to queue (body serialized as text/xml only)
 * Copying message to file
 * Importing message from file
