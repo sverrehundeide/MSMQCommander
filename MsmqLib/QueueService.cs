@@ -25,6 +25,7 @@ namespace MsmqLib
         bool TryConnect(string machineName, out string errorMessage);
         bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage);
         bool ImportMessageBody(MessageQueue messageQueue, string fileName, out string errorMessage, bool useDeadletterQueue = true);
+        bool DeleteMessage(MessageQueue messageQueue, string messageId, out string errorMessage);
     }
 
     public class QueueService : IQueueService
@@ -296,6 +297,21 @@ namespace MsmqLib
                 errorMessage = e.Message;
                 return false;
             }
+        }
+
+        public bool DeleteMessage(MessageQueue messageQueue, string messageId, out string errorMessage)
+        {
+            try
+            {
+                messageQueue.ReceiveById(messageId);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
+            errorMessage = null;
+            return true;
         }
     }
 }

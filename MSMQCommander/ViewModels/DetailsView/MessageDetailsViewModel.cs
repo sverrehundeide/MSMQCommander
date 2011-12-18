@@ -11,7 +11,8 @@ namespace MSMQCommander.ViewModels
 {
     public class MessageDetailsViewModel : 
         PropertyChangedBase,
-        IHandle<MessageSelectedEvent>
+        IHandle<MessageSelectedEvent>,
+        IHandle<MessageDeletedEvent>
     {
         private readonly IQueueService _queueService;
         private readonly MessageQueue _messageQueue;
@@ -31,6 +32,15 @@ namespace MSMQCommander.ViewModels
 
             var fullMessage = _queueService.GetFullMessage(_messageQueue, messageSelectedEvent.MessageId);
             SetCurrentMessage(fullMessage);
+        }
+
+        public void Handle(MessageDeletedEvent messageDeletedEvent)
+        {
+            if (_message != null && _message.Id == messageDeletedEvent.MessageId)
+            {
+                _message = null;
+                Refresh();
+            }
         }
 
         private void SetCurrentMessage(Message fullMessage)

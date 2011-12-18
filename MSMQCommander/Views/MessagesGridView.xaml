@@ -41,6 +41,13 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </MenuItem>
+                        <MenuItem Header="Delete message" IsEnabled="{Binding Path=IsDeleteMessageEnabled, Mode=OneWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="DeleteMessage"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

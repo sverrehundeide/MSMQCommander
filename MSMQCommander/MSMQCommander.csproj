@@ -127,6 +127,7 @@
     <Compile Include="Utils\VersionInformation.cs" />
     <Compile Include="Utils\ViewContentsFormattingExtensions.cs" />
     <Compile Include="ViewModels\DetailsView\DetailsViewModel.cs" />
+    <Compile Include="Events\MessageDeletedEvent.cs" />
     <Compile Include="ViewModels\DetailsView\MessageDetailsViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessagesGridViewModel.cs" />
     <Compile Include="ViewModels\DetailsView\MessageGridRowViewModel.cs" />

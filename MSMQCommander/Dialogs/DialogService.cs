@@ -17,6 +17,7 @@ namespace MSMQCommander.Dialogs
         void ExportMessageBody(MessageQueue messageQueue, string messageId);
         bool ImportMessageBody(MessageQueue messageQueue);
         bool CreateNewMessage(MessageQueue messageQueue);
+        bool DeleteMessage(MessageQueue messageQueue, string messageId);
     }
 
     public class DialogService : IDialogService
@@ -78,6 +79,22 @@ namespace MSMQCommander.Dialogs
             var viewModel = (CreateNewMessageViewModel)ViewModelLocator.LocateForViewType(typeof(CreateNewMessageView));
             viewModel.Initialize(messageQueue);
             return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
+        }
+
+        public bool DeleteMessage(MessageQueue messageQueue, string messageId)
+        {
+            var question = string.Format("Delete message id {0}?", messageId);
+            if (AskQuestion(question, "Delete message", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                string errorMessage;
+                if(false == _queueService.DeleteMessage(messageQueue, messageId, out errorMessage))
+                {
+                    ShowError("Failed to delete message id {0}: {1}", messageId, errorMessage);
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -43,6 +43,7 @@ namespace MSMQCommander.ViewModels
             {
                 _lastSelectedItem = value;
                 NotifyOfPropertyChange(() => IsExportMessageBodyEnabled);
+                NotifyOfPropertyChange(() => IsDeleteMessageEnabled);
 
                 if (value == null || !Messages.Any())
                     return;
@@ -78,6 +79,21 @@ namespace MSMQCommander.ViewModels
         {
             if (_dialogService.CreateNewMessage(_messageQueue))
             {
+                _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
+        }
+
+        public bool IsDeleteMessageEnabled
+        {
+            get { return _lastSelectedItem != null; }
+        }
+
+        public void DeleteMessage()
+        {
+            var messageId = _lastSelectedItem.Id;
+            if (_dialogService.DeleteMessage(_messageQueue, messageId))
+            {
+                _eventAggregator.Publish(new MessageDeletedEvent(messageId));
                 _eventAggregator.Publish(new RefreshQueuesEvent());
             }
         }
