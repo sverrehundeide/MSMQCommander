@@ -15,6 +15,7 @@ namespace MSMQCommander.Dialogs
         void ConnectToComputer();
         void ShowError(string errorMessageFormat, params object[] args);
         void ExportMessageBody(MessageQueue messageQueue, string messageId);
+        bool CreateNewMessage(MessageQueue messageQueue);
     }
 
     public class DialogService : IDialogService
@@ -62,6 +63,13 @@ namespace MSMQCommander.Dialogs
                     ShowError("Failed to export to file '{0}': {1}", filePath, errorMessage);
                 }
             }
+        }
+
+        public bool CreateNewMessage(MessageQueue messageQueue)
+        {
+            var viewModel = (CreateNewMessageViewModel)ViewModelLocator.LocateForViewType(typeof(CreateNewMessageView));
+            viewModel.Initialize(messageQueue);
+            return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
         }
     }
 }

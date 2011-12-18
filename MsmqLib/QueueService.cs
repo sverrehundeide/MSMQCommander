@@ -21,6 +21,7 @@ namespace MsmqLib
         void PurgeMessages(MessageQueue messageQueue);
         bool TryConnect(string machineName, out string errorMessage);
         bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage);
+        bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null);
     }
 
     public class QueueService : IQueueService
@@ -47,10 +48,26 @@ namespace MsmqLib
         {
             Guard.QueueExists(queuePath);
 
-            var message = new Message(body);
             var messageQueue = new MessageQueue(queuePath);
-            messageQueue.Send(message, (label ?? string.Empty));
-            messageQueue.Close();
+            string errorMessage;
+            CreateMessage(messageQueue, body, out errorMessage, label);
+        }
+
+        public bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null)
+        {
+            try
+            {
+                var message = new Message(body, new BinaryMessageFormatter());
+                messageQueue.Send(message, (label ?? string.Empty));
+                messageQueue.Close();
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
+            errorMessage = null;
+            return true;
         }
 
         public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)

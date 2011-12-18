@@ -65,5 +65,13 @@ namespace MSMQCommander.ViewModels
         {
             _dialogService.ExportMessageBody(_messageQueue, _lastSelectedItem.Id);
         }
+
+        public void CreateNewMessage()
+        {
+            if (_dialogService.CreateNewMessage(_messageQueue))
+            {
+                RefreshMessages();
+            }
+        }
     }
 }
