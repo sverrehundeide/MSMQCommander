@@ -4,16 +4,23 @@ using NUnit.Framework;
 
 namespace MsmqLib.Tests.QueueServiceTests
 {
-    [TestFixture]
-    public class CreateQueue_WhenNewQueue 
+    [TestFixture(true)]
+    [TestFixture(false)]
+    public class CreateQueue_WhenNewQueue
         : ArrangeActAssertTestBase
     {
+        private readonly bool _isTransactional;
         private const string NameOfNewQueue = "integrationTestQueue_1";
         private const string ComputerName = ".";
 
+        public CreateQueue_WhenNewQueue(bool isTransactional)
+        {
+            _isTransactional = isTransactional;
+        }
+
         public override void Cleanup()
         {
-            QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, NameOfNewQueue);
+            QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, NameOfNewQueue, _isTransactional);
         }
 
         protected override void Arrange()
@@ -23,26 +30,37 @@ namespace MsmqLib.Tests.QueueServiceTests
 
         protected override void Act()
         {
-            QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue);
+            Result = QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue, _isTransactional);
         }
 
         [Test]
         public void ShouldCreateQueue()
         {
             var result = new QueueService().GetPrivateQueues(ComputerName);
-            Assert.That(result
-                .Where(q => q.QueueName.ToLower().Contains(NameOfNewQueue.ToLower()))
-                .Count(),
+            Assert.That(result.Count(q => q.QueueName.ToLower().Contains(NameOfNewQueue.ToLower())),
                 Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ShouldSetCorrectTransactionalOption()
+        {
+            Assert.That(GetResult<MessageQueue>().Transactional, Is.EqualTo(_isTransactional));
         }
     }
 
-    [TestFixture]
+    [TestFixture(true)]
+    [TestFixture(false)]
     public class CreateQueue_WhenQueueExists
         : ArrangeActAssertTestBase
     {
+        private readonly bool _isTransactional;
         private const string NameOfNewQueue = "integrationTestQueue_1";
         private const string ComputerName = ".";
+
+        public CreateQueue_WhenQueueExists(bool isTransactional)
+        {
+            _isTransactional = isTransactional;
+        }
 
         public override void Cleanup()
         {
@@ -52,21 +70,19 @@ namespace MsmqLib.Tests.QueueServiceTests
         protected override void Arrange()
         {
             Cleanup(); //Make sure queue does not exist
-            QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue);
+            QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue, _isTransactional);
         }
 
         protected override void Act()
         {
-            QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue);
+            QueueTestHelper.CreatePrivateQueue(ComputerName, NameOfNewQueue, _isTransactional);
         }
 
         [Test]
         public void ShouldReuseExistingQueue()
         {
             var result = new QueueService().GetPrivateQueues(ComputerName);
-            Assert.That(result
-                .Where(q => q.QueueName.ToLower().Contains(NameOfNewQueue.ToLower()))
-                .Count(),
+            Assert.That(result.Count(q => q.QueueName.ToLower().Contains(NameOfNewQueue.ToLower())),
                 Is.EqualTo(1));
         }
     }
@@ -78,12 +94,14 @@ namespace MsmqLib.Tests.QueueServiceTests
         private const string TestQueuesPrefix = "integrationTestQueue_";
         private const string ComputerName = ".";
 
+
+
         public override void Cleanup()
         {
             QueueTestHelper.CleanupPrivateTestQueues(ComputerName, TestQueuesPrefix);
         }
 
-        protected override void  Arrange()
+        protected override void Arrange()
         {
             QueueTestHelper.CreatePrivateQueue(ComputerName, TestQueuesPrefix, 1);
             QueueTestHelper.CreatePrivateQueue(ComputerName, TestQueuesPrefix, 2);
@@ -100,7 +118,7 @@ namespace MsmqLib.Tests.QueueServiceTests
             Assert.That(GetResult<MessageQueue[]>()
                 .Where(q => q.QueueName.ToLower().Contains(TestQueuesPrefix.ToLower()))
                 .Distinct()
-                .Count(), 
+                .Count(),
                 Is.EqualTo(2));
         }
 
@@ -108,8 +126,7 @@ namespace MsmqLib.Tests.QueueServiceTests
         public void ReturnedQueuesShouldBePrivate()
         {
             Assert.That(GetResult<MessageQueue[]>()
-                .Where(q => false == q.Path.ToLower().Contains(@"private$"))
-                .Count(),
+                .Count(q => false == q.Path.ToLower().Contains(@"private$")),
                 Is.EqualTo(0));
         }
     }

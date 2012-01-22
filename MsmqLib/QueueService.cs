@@ -11,7 +11,7 @@ namespace MsmqLib
     public interface IQueueService
     {
         MessageQueue[] GetPrivateQueues(string computerName);
-        MessageQueue CreateQueue(string queuePath);
+        MessageQueue CreateQueue(string queuePath, bool isTransactional = false);
         void DeleteQueue(string queuePath);
         void CreateMessage(string queuePath, object body, string label = null);
         bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null, bool useDeadLetterQueue = true);
@@ -35,10 +35,10 @@ namespace MsmqLib
             return MessageQueue.GetPrivateQueuesByMachine(computerName);
         }
 
-        public MessageQueue CreateQueue(string queuePath)
+        public MessageQueue CreateQueue(string queuePath, bool isTransactional)
         {
             if (!MessageQueue.Exists(queuePath))
-                return MessageQueue.Create(queuePath);
+                return MessageQueue.Create(queuePath, isTransactional);
 
             return new MessageQueue(queuePath);
         }
@@ -53,6 +53,7 @@ namespace MsmqLib
             Guard.QueueExists(queuePath);
 
             var messageQueue = new MessageQueue(queuePath);
+            
             string errorMessage;
             CreateMessage(messageQueue, body, out errorMessage, label);
             messageQueue.Close();
@@ -67,7 +68,7 @@ namespace MsmqLib
                                   {
                                       UseDeadLetterQueue = useDeadLetterQueue
                                   };
-                messageQueue.Send(message, (label ?? string.Empty));
+                messageQueue.Execute(queue => queue.Send(message, (label ?? string.Empty), MessageQueueTransactionType.Automatic));
             }
             catch (Exception e)
             {
@@ -303,7 +304,7 @@ namespace MsmqLib
         {
             try
             {
-                messageQueue.ReceiveById(messageId);
+                messageQueue.Execute(queue => queue.ReceiveById(messageId, MessageQueueTransactionType.Automatic));
             }
             catch (Exception e)
             {

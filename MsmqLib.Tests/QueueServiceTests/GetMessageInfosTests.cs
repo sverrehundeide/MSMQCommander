@@ -5,10 +5,12 @@ using NUnit.Framework;
 
 namespace MsmqLib.Tests.QueueServiceTests
 {
-    [TestFixture]
+    [TestFixture(true)]
+    [TestFixture(false)]
     public class GetMessageInfos_WhenHasMultipleMessages
         : ArrangeActAssertTestBase
     {
+        private readonly bool _isTransactional;
         private const string TestQueueName = "integrationTestQueue_1";
         private const string ComputerName = ".";
         private const string TestMessagesLabel = "CreateMessageTest";
@@ -16,9 +18,14 @@ namespace MsmqLib.Tests.QueueServiceTests
         private QueueService _queueService;
         private string _queuePath;
 
+        public GetMessageInfos_WhenHasMultipleMessages(bool isTransactional)
+        {
+            _isTransactional = isTransactional;
+        }
+
         public override void Cleanup()
         {
-           QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, TestQueueName);
+           QueueTestHelper.DeletePrivateQueueIfExists(ComputerName, TestQueueName, _isTransactional);
         }
 
         protected override void Arrange()
@@ -26,8 +33,8 @@ namespace MsmqLib.Tests.QueueServiceTests
             Cleanup();
 
             _queueService = new QueueService();
-            _queuePath = QueueTestHelper.CreateQueuePathForPrivateQueue(ComputerName, TestQueueName);
-            _queueService.CreateQueue(_queuePath);
+            _queuePath = QueueTestHelper.CreateQueuePathForPrivateQueue(ComputerName, TestQueueName, _isTransactional);
+            _queueService.CreateQueue(_queuePath, _isTransactional);
 
             for (int i = 1; i <= MessageCount; i++)
             {
