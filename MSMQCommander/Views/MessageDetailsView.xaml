@@ -1,11 +1,12 @@
-﻿<UserControl x:Class="MSMQCommander.Views.MessageDetailsView"
+﻿<ad:DockableContent x:Class="MSMQCommander.Views.MessageDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org" 
-             xmlns:Views="clr-namespace:MSMQCommander.Views" xmlns:Mime="clr-namespace:System.Net.Mime;assembly=System"
-             mc:Ignorable="d" 
+             xmlns:Views="clr-namespace:MSMQCommander.Views"
+                    xmlns:Mime="clr-namespace:System.Net.Mime;assembly=System"
+                    xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock" mc:Ignorable="d" 
              d:DesignHeight="273" d:DesignWidth="550" 
              cal:Bind.Model="MSMQCommander.ViewModels.MessageDetailsViewModel">
     <Grid>
@@ -107,4 +108,4 @@
             </TabControl>
         </DockPanel>
     </Grid>
-</UserControl>
+</ad:DockableContent>

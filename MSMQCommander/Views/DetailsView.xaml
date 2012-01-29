@@ -1,11 +1,11 @@
 ﻿<ad:DocumentContent x:Class="MSMQCommander.Views.DetailsView"
+             xmlns:myViews="clr-namespace:MSMQCommander.Views"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock" 
              xmlns:cal="http://www.caliburnproject.org" 
-                    xmlns:Views="clr-namespace:MSMQCommander.Views"
                     mc:Ignorable="d" 
              d:DesignHeight="246" d:DesignWidth="300" 
              IsCloseable="False"
@@ -13,9 +13,13 @@
              Title="{Binding Path=Title}"
              IsFloatingAllowed="False">
     <Grid>
-        <DockPanel>
-            <Views:MessagesGridView DockPanel.Dock="Top" MinHeight="100" MaxHeight="250" />
-            <Views:MessageDetailsView DockPanel.Dock="Bottom"/>
-        </DockPanel>
+        <ad:DockingManager Name="_dockingManager" Grid.Row="1">
+            <ad:ResizingPanel Orientation="Vertical">
+                <ad:DockablePane ad:ResizingPanel.ResizeHeight="100" ShowHeader="False">
+                    <myViews:MessagesGridView/>
+                </ad:DockablePane>
+                <myViews:MessageDetailsView/>
+            </ad:ResizingPanel>
+        </ad:DockingManager>
     </Grid>
 </ad:DocumentContent>

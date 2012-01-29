@@ -5,6 +5,8 @@ For next release
 ----------------
 * Support for transactional queues
 * Use Delete key in grid view to delete one or more selected message(s)
+* Added accelerator keys for buttons and set default focused text box in dialogs
+* Made gridview panel resizable
 
 2011-12-18: Version 0.3 (Alpha release)
 ---------------------------------------

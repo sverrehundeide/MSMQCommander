@@ -1,11 +1,12 @@
-﻿<UserControl x:Class="MSMQCommander.Views.MessagesGridView"
+﻿<ad:DockableContent x:Class="MSMQCommander.Views.MessagesGridView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d" 
+             xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock" 
+                    mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="300" 
              cal:Bind.Model="MSMQCommander.ViewModels.MessagesGridViewModel">
     <Grid>
@@ -54,4 +55,4 @@
             </DataGrid>
         </DockPanel>
     </Grid>
-</UserControl>
+</ad:DockableContent>
