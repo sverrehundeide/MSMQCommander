@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Messaging;
+using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
 using MSMQCommander.Dialogs;
@@ -28,6 +32,8 @@ namespace MSMQCommander.ViewModels
             Messages = new BindableCollection<MessageGridRowViewModel>();
             RefreshMessages();
             _eventAggregator.Subscribe(this);
+
+            Messages.CollectionChanged += MessagesOnCollectionChanged;
         }
 
         private void RefreshMessages()
@@ -95,6 +101,37 @@ namespace MSMQCommander.ViewModels
             {
                 _eventAggregator.Publish(new MessageDeletedEvent(messageId));
                 _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
+        }
+
+        public void HandlePreviewKeyDown(KeyEventArgs args)
+        {
+            if (args.Key == Key.Delete)
+            {
+                if (_dialogService.AskQuestion("Delete selected row(s)?", "Delete", MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
+                {
+                    args.Handled = true;
+                }
+            }
+        }
+
+        private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            if (notifyCollectionChangedEventArgs.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (MessageGridRowViewModel deletedItem in notifyCollectionChangedEventArgs.OldItems)
+                {
+                    string errorMessage;
+                    if (false == _queueService.DeleteMessage(_messageQueue, deletedItem.Id, out errorMessage))
+                    {
+                        _dialogService.ShowError(errorMessage);
+                    }
+                    if (_lastSelectedItem.Id == deletedItem.Id)
+                    {
+                        _eventAggregator.Publish(new MessageDeletedEvent(deletedItem.Id));
+                    }
+                }
+                _eventAggregator.Publish(new QueueMessageCountChangedEvent(_messageQueue));
             }
         }
     }

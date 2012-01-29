@@ -12,6 +12,7 @@
         <DockPanel>
             <DataGrid ItemsSource="{Binding Path=Messages}" 
                       SelectedItem="{Binding Path=SelectedItem, Mode=OneWayToSource}"
+                      cal:Message.Attach="[Event PreviewKeyDown]=[Action HandlePreviewKeyDown($eventArgs)]"
                       AutoGenerateColumns="False" AlternatingRowBackground="Lavender">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Label" IsReadOnly="True" MinWidth="100" Binding="{Binding Path=Label, Mode=OneWay}"/>

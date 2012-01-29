@@ -1,6 +1,11 @@
 Changelog
 =========
 
+For next release
+----------------
+* Support for transactional queues
+* Use Delete key in grid view to delete one or more selected message(s)
+
 2011-12-18: Version 0.3 (Alpha release)
 ---------------------------------------
 * Insert new message to queue (body serialized as text/xml only)
