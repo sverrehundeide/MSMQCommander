@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Messaging;
@@ -12,7 +13,10 @@ using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
-    public class MessagesGridViewModel : PropertyChangedBase, IHandle<RefreshQueuesEvent>
+    public class MessagesGridViewModel : 
+        PropertyChangedBase, 
+        IHandle<RefreshQueuesEvent>,
+        IHandle<AutoRefreshEvent>
     {
         private readonly IQueueService _queueService;
         private readonly IEventAggregator _eventAggregator;
@@ -61,6 +65,47 @@ namespace MSMQCommander.ViewModels
         public void Handle(RefreshQueuesEvent message)
         {
             RefreshMessages();
+        }
+
+        public void Handle(AutoRefreshEvent message)
+        {
+            var updatedMessageList = _queueService.GetMessageInfos(_messageQueue).ToArray();
+            UpdateMessageList(updatedMessageList);
+        }
+
+        private void UpdateMessageList(MessageInfo[] updatedMessageList)
+        {
+            var existingIds = Messages.Select(m => m.Id).ToArray();
+            var updatedIds = updatedMessageList.Select(m => m.Id).ToArray();
+
+            var removedMessagesIds = existingIds.Union(updatedIds).Except(updatedIds).ToArray();
+            var newMessagesIds = updatedIds.Except(existingIds).ToArray();
+
+            try
+            {
+                IsNotifying = false;
+                foreach (var removedMessageId in removedMessagesIds)
+                {
+                    var message = Messages.SingleOrDefault(m => m.Id == removedMessageId);
+                    if (message != null)
+                    {
+                        Messages.Remove(message);
+                    }
+                }
+                foreach (var newMessagesId in newMessagesIds)
+                {
+                    var message = updatedMessageList.SingleOrDefault(m => m.Id == newMessagesId);
+                    Messages.Add(new MessageGridRowViewModel(message));
+                }
+            }
+            finally
+            {
+                IsNotifying = true;
+            }
+            if (removedMessagesIds.Any() || newMessagesIds.Any())
+            {
+                _eventAggregator.Publish(new QueueMessageCountChangedEvent(_messageQueue));
+            }
         }
 
         public bool IsExportMessageBodyEnabled
@@ -117,6 +162,11 @@ namespace MSMQCommander.ViewModels
 
         private void MessagesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
+            if (!IsNotifying)
+            {
+                return;
+            }
+
             if (notifyCollectionChangedEventArgs.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (MessageGridRowViewModel deletedItem in notifyCollectionChangedEventArgs.OldItems)
@@ -126,7 +176,7 @@ namespace MSMQCommander.ViewModels
                     {
                         _dialogService.ShowError(errorMessage);
                     }
-                    if (_lastSelectedItem.Id == deletedItem.Id)
+                    if (_lastSelectedItem != null && _lastSelectedItem.Id == deletedItem.Id)
                     {
                         _eventAggregator.Publish(new MessageDeletedEvent(deletedItem.Id));
                     }

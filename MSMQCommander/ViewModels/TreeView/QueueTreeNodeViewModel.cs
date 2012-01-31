@@ -11,7 +11,8 @@ namespace MSMQCommander.ViewModels
     public class QueueTreeNodeViewModel : 
         PropertyChangedBase,
         IHandle<RefreshQueuesEvent>,
-        IHandle<QueueMessageCountChangedEvent>
+        IHandle<QueueMessageCountChangedEvent>,
+        IHandle<AutoRefreshEvent>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly MessageQueue _messageQueue;
@@ -127,6 +128,12 @@ namespace MSMQCommander.ViewModels
             {
                 NotifyOfPropertyChange(() => MessageCount);
             }
+        }
+
+        public void Handle(AutoRefreshEvent message)
+        {
+            NotifyOfPropertyChange(() => MessageCount);
+            NotifyOfPropertyChange(() => Name);
         }
 
         public void PurgeMessages()

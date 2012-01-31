@@ -121,6 +121,7 @@
     <Compile Include="Events\QueueConnectionChangedEvent.cs" />
     <Compile Include="Events\QueueSelectedEvent.cs" />
     <Compile Include="Events\RefreshQueuesEvent.cs" />
+    <Compile Include="Events\AutoRefreshEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="Utils\ConsoleLogger.cs" />

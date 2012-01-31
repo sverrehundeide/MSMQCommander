@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Messaging;
+using System.Threading;
 using Caliburn.Micro;
 using MSMQCommander.Contex;
 using MSMQCommander.Dialogs;
@@ -20,6 +22,8 @@ namespace MSMQCommander
         private readonly CurrentSelectedQueueContext _currentSelectedQueueContext;
         private readonly IDialogService _dialogService;
         private readonly ObservableCollection<DetailsView> _detailsViews = new ObservableCollection<DetailsView>();
+        private bool _autoRefreshEnabled;
+        private Timer _autoRefreshTimer;
 
         public ShellViewModel(IEventAggregator eventAggregator, CurrentSelectedQueueContext currentSelectedQueueContext, IDialogService dialogService)
         {
@@ -66,6 +70,26 @@ namespace MSMQCommander
         public void RefreshQueues()
         {
             _eventAggregator.Publish(new RefreshQueuesEvent());
+        }
+
+        public void ToggleAutoRefresh()
+        {
+            _autoRefreshEnabled = !_autoRefreshEnabled;
+
+            if (_autoRefreshTimer != null)
+            {
+                _autoRefreshTimer.Dispose();
+                _autoRefreshTimer = null;
+            }
+            if (_autoRefreshEnabled)
+            {
+                _autoRefreshTimer = new Timer(ToggleAutoRefreshCallBackHandler, null, new TimeSpan(), new TimeSpan(0,0,0,3));
+            }
+        }
+
+        private void ToggleAutoRefreshCallBackHandler(object state)
+        {
+            _eventAggregator.Publish(new AutoRefreshEvent());
         }
 
         public void ConnectToComputer()
