@@ -7,6 +7,7 @@ For next release
 * Use Delete key in grid view to delete one or more selected message(s)
 * Added accelerator keys for buttons and set default focused text box in dialogs
 * Made gridview panel resizable
+* Added button for auto refresh of messages in open queues and of message count and queue names in tree view
 
 2011-12-18: Version 0.3 (Alpha release)
 ---------------------------------------
