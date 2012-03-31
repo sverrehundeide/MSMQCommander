@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="{E269BD97-95D4-41A3-9BCB-4B59E1FD2E04}" Language="1033"
+     Manufacturer="SolidApps.net"
+     Name="MSMQ Commander"
+     UpgradeCode="{9945B617-B4A6-4B81-B1A6-4D0F8603D4FA}"
+     Version="0.4.0.0">
+    <Package InstallerVersion="300" Compressed="yes" />
+    <Media Id="1" Cabinet="msmqExplorer.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="MSMQ Commander" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="MSMQ Commander"/>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MSMQCommander" Guid="B8935B97-AE6D-4019-B579-EB4524E93320">
+        <File Id="MSMQCommander.exe" KeyPath="yes" Checksum="yes"
+        Source="../MSMQCommander/bin/Debug/MSMQCommander.exe" />
+      </Component>
+      <Component Id="MsmqLib" Guid="F77BE1D4-D00E-496D-857C-422A3042E599">
+        <File Id="MsmqLib" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/MsmqLib.dll" />
+      </Component>
+      <Component Id="System.Windows.Interactivity" Guid="E0A84FE1-D985-4EA9-BBF3-17EF2482734A">
+        <File Id="System.Windows.Interactivity" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/System.Windows.Interactivity.dll" />
+      </Component>
+      <Component Id="Caliburn.Micro" Guid="BD23A2F8-339D-41CB-95EF-9B3225B2DECF">
+        <File Id="Caliburn.Micro" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/Caliburn.Micro.dll" />
+      </Component>
+      <Component Id="AvalonDock.Themes" Guid="2896579C-8CA9-46BA-9123-1E876A1B27A8">
+        <File Id="AvalonDock.Themes" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/AvalonDock.Themes.dll" />
+      </Component>
+      <Component Id="AvalonDock" Guid="FC29C5C7-30C2-4365-953C-1635736A2DC1">
+        <File Id="AvalonDock" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/AvalonDock.dll" />
+      </Component>
+      <Component Id="Autofac" Guid="F29B5427-5970-4093-A561-B20A4747B6AF">
+        <File Id="Autofac" KeyPath="yes"
+        Source="../MSMQCommander/bin/Debug/Autofac.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="C8935B97-DE6D-4019-B570-AB4524E93321">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+          Name="MSMQ Commander"
+          Target="[INSTALLDIR]MSMQCommander.exe"
+          WorkingDirectory="INSTALLDIR" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\MSMQCommander" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="MainApplication" Title="Main Application" Level="1">
+      <ComponentRef Id="MSMQCommander" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="MsmqLib" />
+      <ComponentRef Id="System.Windows.Interactivity" />
+      <ComponentRef Id="Caliburn.Micro" />
+      <ComponentRef Id="AvalonDock.Themes" />
+      <ComponentRef Id="AvalonDock" />
+      <ComponentRef Id="Autofac" />
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" ></Property>
+    <UIRef Id="WixUI_InstallDir"/>
+    <WixVariable Id="WixUILicenseRtf" Value="..\License.rtf" />
+
+  </Product>
+</Wix>

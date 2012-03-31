@@ -3,8 +3,9 @@ TODO
 
 Next release
 ------------
-* Automatic refresh of messages
-* Support for transactional queues
+* Create new queues
+* Delete queues
+* New dialog for viewing and changing queue properties
 
 Future release
 --------------
