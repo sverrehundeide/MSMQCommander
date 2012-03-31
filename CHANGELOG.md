@@ -8,6 +8,7 @@ For next release
 * Added accelerator keys for buttons and set default focused text box in dialogs
 * Made gridview panel resizable
 * Added button for auto refresh of messages in open queues and of message count and queue names in tree view
+* Switched to WIX installer (old installer no longer works in Visual Studio 11)
 
 2011-12-18: Version 0.3 (Alpha release)
 ---------------------------------------
