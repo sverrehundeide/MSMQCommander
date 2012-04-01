@@ -1,12 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="{E269BD97-95D4-41A3-9BCB-4B59E1FD2E04}" Language="1033"
+  <Product Id="*" 
+     Language="1033"
      Manufacturer="SolidApps.net"
      Name="MSMQ Commander"
      UpgradeCode="{9945B617-B4A6-4B81-B1A6-4D0F8603D4FA}"
      Version="0.4.0.0">
     <Package InstallerVersion="300" Compressed="yes" />
     <Media Id="1" Cabinet="msmqExplorer.cab" EmbedCab="yes" />
+
+    <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+    <Upgrade Id="{45396E3E-F552-493A-B78C-41C1736BEB92}">
+      <UpgradeVersion Minimum="0.2.0.0" Maximum="0.4.0.0" Property="PREVIOUSVERSIONSINSTALLED" IncludeMinimum="yes" IncludeMaximum="no" />
+    </Upgrade>
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallFinalize"></RemoveExistingProducts>
+    </InstallExecuteSequence>
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
