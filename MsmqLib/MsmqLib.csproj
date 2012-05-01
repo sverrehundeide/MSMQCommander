@@ -51,6 +51,7 @@
     <Compile Include="MessageInfo.cs" />
     <Compile Include="MessageQueueTransactionWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueuePathHelper.cs" />
     <Compile Include="QueueService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

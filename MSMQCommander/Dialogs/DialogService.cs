@@ -18,6 +18,7 @@ namespace MSMQCommander.Dialogs
         bool ImportMessageBody(MessageQueue messageQueue);
         bool CreateNewMessage(MessageQueue messageQueue);
         bool DeleteMessage(MessageQueue messageQueue, string messageId);
+        bool CreateNewQueue();
     }
 
     public class DialogService : IDialogService
@@ -95,6 +96,12 @@ namespace MSMQCommander.Dialogs
                 return true;
             }
             return false;
+        }
+
+        public bool CreateNewQueue()
+        {
+            var viewModel = (CreateNewQueueViewModel) ViewModelLocator.LocateForViewType(typeof (CreateNewQueueView));
+            return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
         }
     }
 }

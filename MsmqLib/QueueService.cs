@@ -12,6 +12,7 @@ namespace MsmqLib
     {
         MessageQueue[] GetPrivateQueues(string computerName);
         MessageQueue CreateQueue(string queuePath, bool isTransactional = false);
+        MessageQueue CreateQueue(string queuePath, bool isTransactional, out string errorMessage);
         void DeleteQueue(string queuePath);
         void CreateMessage(string queuePath, object body, string label = null);
         bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null, bool useDeadLetterQueue = true);
@@ -41,6 +42,20 @@ namespace MsmqLib
                 return MessageQueue.Create(queuePath, isTransactional);
 
             return new MessageQueue(queuePath);
+        }
+
+        public MessageQueue CreateQueue(string queuePath, bool isTransactional, out string errorMessage)
+        {
+            errorMessage = null;
+            try
+            {
+                return CreateQueue(queuePath, isTransactional);
+            }
+            catch(Exception e)
+            {
+                errorMessage = e.Message;
+                return null;
+            }
         }
 
         public void DeleteQueue(string queuePath)

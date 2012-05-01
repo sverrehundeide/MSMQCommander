@@ -112,7 +112,28 @@ namespace MSMQCommander.ViewModels
             }
         }
 
+        public void CreateNewQueue()
+        {
+            _dialogService.CreateNewQueue();
+            RefreshQueues();
+        }
+
         public Visibility ContextMenuVisibility
+        {
+            get { return Visibility.Visible; }
+        }
+
+        public Visibility IsCreateNewQueueContextMenuVisible
+        {
+            get { return Visibility.Visible; }
+        }
+
+        public Visibility IsJournalingTogglingContextMenuVisible
+        {
+            get { return Visibility.Collapsed; }
+        }
+
+        public Visibility IsPurgeMessagesContextMenuVisible
         {
             get { return Visibility.Collapsed; }
         }
