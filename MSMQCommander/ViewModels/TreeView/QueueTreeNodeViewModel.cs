@@ -66,6 +66,11 @@ namespace MSMQCommander.ViewModels
             get { return Visibility.Visible; }
         }
 
+        public Visibility IsCreateNewQueueContextMenuVisible
+        {
+            get { return Visibility.Collapsed; }
+        }
+
         public bool IsExpanded
         {
             get { return _isExpanded; }
