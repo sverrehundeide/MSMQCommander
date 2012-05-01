@@ -30,7 +30,8 @@
                 <Label Grid.Column="0" Grid.Row="1" Content="Target queue:" ToolTip="The intended destination queue for a message"/>
                 <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=QueueName, Mode=OneWay}" IsReadOnly="True" Margin="0,-8,0,-8" Height="25" />
                 <Label Grid.Column="0" Grid.Row="2" Content="Use dead lette queue:" ToolTip="The intended destination queue for a message"/>
-                <CheckBox Grid.Column="1" Grid.Row="2" IsChecked="{Binding Path=UseDeadLetterQueue, Mode=TwoWay}" Margin="0,5,0,-8" />
+                <CheckBox Grid.Column="1" Grid.Row="2" IsChecked="{Binding Path=UseDeadLetterQueue, Mode=TwoWay}"
+                          Width="16" Height="16" HorizontalAlignment="Left"/>
             </Grid>
 
             <Grid DockPanel.Dock="Bottom">
