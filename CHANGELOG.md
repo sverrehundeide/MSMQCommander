@@ -3,6 +3,7 @@ Changelog
 
 For next release
 ----------------
+* Create new queues
 
 
 2011-12-18: Version 0.4 (Alpha release)
