@@ -116,6 +116,7 @@
     <Compile Include="Contex\QueueConnectionContext.cs" />
     <Compile Include="Dialogs\DialogService.cs" />
     <Compile Include="Events\MessageSelectedEvent.cs" />
+    <Compile Include="Events\QueueDeletedEvent.cs" />
     <Compile Include="Events\QueueMessageCountChangedEvent.cs" />
     <Compile Include="Events\QueueClosedEvent.cs" />
     <Compile Include="Events\QueueConnectionChangedEvent.cs" />

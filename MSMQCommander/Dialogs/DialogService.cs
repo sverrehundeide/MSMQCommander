@@ -19,6 +19,7 @@ namespace MSMQCommander.Dialogs
         bool CreateNewMessage(MessageQueue messageQueue);
         bool DeleteMessage(MessageQueue messageQueue, string messageId);
         bool CreateNewQueue();
+        bool DeleteQueue(MessageQueue messageQueue);
     }
 
     public class DialogService : IDialogService
@@ -102,6 +103,22 @@ namespace MSMQCommander.Dialogs
         {
             var viewModel = (CreateNewQueueViewModel) ViewModelLocator.LocateForViewType(typeof (CreateNewQueueView));
             return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
+        }
+
+        public bool DeleteQueue(MessageQueue messageQueue)
+        {
+            var question = string.Format("Delete the queue '{0}'?", messageQueue.QueueName);
+            if (AskQuestion(question, "Delete queue", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                string errorMessage;
+                if (false == _queueService.DeleteQueue(messageQueue, out errorMessage))
+                {
+                    ShowError("Failed to delete the message queue '{0}': {1}", messageQueue.QueueName, errorMessage);
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

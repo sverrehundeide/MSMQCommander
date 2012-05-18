@@ -49,6 +49,13 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </MenuItem>
+                                    <MenuItem Header="Delete queue" Visibility="{Binding IsDeleteQueueContextMenuVisible, Mode=OneWay}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <cal:ActionMessage MethodName="DeleteQueue"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </MenuItem>
                                 </ContextMenu>
                             </StackPanel.ContextMenu>
                         </StackPanel>

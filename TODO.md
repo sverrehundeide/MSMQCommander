@@ -3,7 +3,6 @@ TODO
 
 Next release
 ------------
-* Delete queues
 * New dialog for viewing and changing queue properties
 
 Future release

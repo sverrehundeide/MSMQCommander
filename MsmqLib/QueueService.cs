@@ -14,6 +14,7 @@ namespace MsmqLib
         MessageQueue CreateQueue(string queuePath, bool isTransactional = false);
         MessageQueue CreateQueue(string queuePath, bool isTransactional, out string errorMessage);
         void DeleteQueue(string queuePath);
+        bool DeleteQueue(MessageQueue messageQueue, out string errorMessage);
         void CreateMessage(string queuePath, object body, string label = null);
         bool CreateMessage(MessageQueue messageQueue, object body, out string errorMessage, string label = null, bool useDeadLetterQueue = true);
         void ClearMessages(string queuePath, string labelFilter = null);
@@ -62,6 +63,22 @@ namespace MsmqLib
         {
             MessageQueue.Delete(queuePath);
         }
+
+        public bool DeleteQueue(MessageQueue messageQueue, out string errorMessage)
+        {
+            errorMessage = null;
+            try
+            {
+                DeleteQueue(messageQueue.Path);
+                return true;
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return false;
+            }
+        }
+
 
         public void CreateMessage(string queuePath, object body, string label = null)
         {

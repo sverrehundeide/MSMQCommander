@@ -49,6 +49,11 @@ namespace MSMQCommander.ViewModels
             get { return Visibility.Collapsed; }
         }
 
+        public Visibility IsDeleteQueueContextMenuVisible
+        {
+            get { return Visibility.Collapsed; }
+        }
+
         public bool IsSelected
         {
             get { return _isSelected; }

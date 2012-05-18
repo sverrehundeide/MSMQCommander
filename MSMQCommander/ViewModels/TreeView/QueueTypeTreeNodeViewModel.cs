@@ -13,7 +13,8 @@ namespace MSMQCommander.ViewModels
     public class QueueTypeTreeNodeViewModel : 
         PropertyChangedBase,
         IHandle<QueueConnectionChangedEvent>,
-        IHandle<RefreshQueuesEvent>
+        IHandle<RefreshQueuesEvent>,
+        IHandle<QueueDeletedEvent>
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IQueueService _queueService;
@@ -64,6 +65,11 @@ namespace MSMQCommander.ViewModels
         }
 
         public void Handle(RefreshQueuesEvent message)
+        {
+            RefreshQueues();
+        }
+
+        public void Handle(QueueDeletedEvent message)
         {
             RefreshQueues();
         }
@@ -136,6 +142,11 @@ namespace MSMQCommander.ViewModels
         public Visibility IsPurgeMessagesContextMenuVisible
         {
             get { return Visibility.Collapsed; }
+        }
+
+        public Visibility IsDeleteQueueContextMenuVisible
+        {
+            get {return Visibility.Collapsed; }
         }
     }
 }

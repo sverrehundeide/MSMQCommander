@@ -71,6 +71,11 @@ namespace MSMQCommander.ViewModels
             get { return Visibility.Collapsed; }
         }
 
+        public Visibility IsDeleteQueueContextMenuVisible
+        {
+            get { return Visibility.Visible; }
+        }
+
         public bool IsExpanded
         {
             get { return _isExpanded; }
@@ -149,6 +154,12 @@ namespace MSMQCommander.ViewModels
                 _queueService.PurgeMessages(_messageQueue);
                 _eventAggregator.Publish(new RefreshQueuesEvent());
             }
+        }
+
+        public void DeleteQueue()
+        {
+            _dialogService.DeleteQueue(_messageQueue);
+            _eventAggregator.Publish(new QueueDeletedEvent(_messageQueue));
         }
     }
 }
