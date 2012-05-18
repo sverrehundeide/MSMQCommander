@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="{Binding Path=Title, Mode=OneWay}" Height="121" Width="421" Topmost="True" 
         Icon="/MSMQCommander;component/Images/AppIcon.ico"
+        FocusManager.FocusedElement="{Binding ElementName=QueueName}"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <DockPanel>
