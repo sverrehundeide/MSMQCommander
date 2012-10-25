@@ -53,7 +53,15 @@ namespace MSMQCommander.ViewModels
 
         public string MessageCount
         {
-            get { return string.Format(" ({0})", _queueService.GetMessageCount(_messageQueue).ToString()); }
+            get
+            {
+                if (! _queueService.HasAccess(_messageQueue))
+                {
+                    return " (No access)";
+                }
+
+                return string.Format(" ({0})", _queueService.GetMessageCount(_messageQueue).ToString());
+            }
         }
 
         public Visibility IsJournalingTogglingContextMenuVisible
