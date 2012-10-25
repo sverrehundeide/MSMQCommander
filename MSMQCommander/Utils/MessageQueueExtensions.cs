@@ -6,7 +6,9 @@ namespace MSMQCommander.Utils
     {
         public static string GetQueueNameExcludingQueueType(this MessageQueue queue)
         {
-            return queue.QueueName.Replace(@"private$\", "");
+            const string backSlash = @"\";
+            var indexOfLastSlash = queue.FormatName.LastIndexOf(backSlash, System.StringComparison.Ordinal);
+            return queue.FormatName.Substring(indexOfLastSlash + backSlash.Length);
         }
         public static string GetQueueNameIncludingQueueType(this MessageQueue queue)
         {

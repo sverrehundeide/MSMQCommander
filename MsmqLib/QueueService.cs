@@ -28,6 +28,7 @@ namespace MsmqLib
         bool ExportMessageBody(MessageQueue messageQueue, string messageId, string fileName, out string errorMessage);
         bool ImportMessageBody(MessageQueue messageQueue, string fileName, out string errorMessage, bool useDeadletterQueue = true);
         bool DeleteMessage(MessageQueue messageQueue, string messageId, out string errorMessage);
+        bool HasAccess(MessageQueue messageQueue);
     }
 
     public class QueueService : IQueueService
@@ -178,6 +179,10 @@ namespace MsmqLib
             queue.MessageReadPropertyFilter.SentTime = true;
 
             var result = new List<MessageInfo>();
+            if (!HasAccess(queue))
+            {
+                return result;
+            }
 
             var messageEnumerator = queue.GetMessageEnumerator2();
             try
@@ -221,6 +226,10 @@ namespace MsmqLib
             messageQueue.MessageReadPropertyFilter.ClearAll();
             var enumerator = messageQueue.GetMessageEnumerator2();
             var messageCount = 0;
+            if (!HasAccess(messageQueue))
+            {
+                return messageCount;
+            }
             while (enumerator.MoveNext())
             {
                 messageCount++;
@@ -345,6 +354,11 @@ namespace MsmqLib
             }
             errorMessage = null;
             return true;
+        }
+
+        public bool HasAccess(MessageQueue messageQueue)
+        {
+            return messageQueue.CanRead;
         }
     }
 }

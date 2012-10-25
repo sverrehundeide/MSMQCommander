@@ -5,6 +5,7 @@ For next release
 ----------------
 * Create new queues
 * Delete queues
+* FIX: Handle situations where the user does not have access to a queue (queue name was set to empty value and exception was thrown)
 
 
 2011-12-18: Version 0.4 (Alpha release)

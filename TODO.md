@@ -7,6 +7,8 @@ Next release
 
 Future release
 --------------
+* Toolbar: New buttons for export, import, create and delete messages
+* Toolbar: Fix formatting of buttons on Windows 8
 * Show message extension data
 * Queue ping (send message with a correlation id and receive it back with ReceiveByCorrelationId)
 * Queue path builder for direct format name, private queues (enter machine name, protocol, http/https)
