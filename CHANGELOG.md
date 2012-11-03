@@ -3,12 +3,15 @@ Changelog
 
 For next release
 ----------------
-* Create new queues
-* Delete queues
+
+
+2012-11-03: Version 0.5 (Alpha release)
+---------------------------------------
+* Support for creating new queues
+* Support for deleting queues
 * FIX: Handle situations where the user does not have access to a queue (queue name was set to empty value and exception was thrown)
 
-
-2011-12-18: Version 0.4 (Alpha release)
+2012-04-01: Version 0.4 (Alpha release)
 ---------------------------------------
 * Support for transactional queues
 * Use Delete key in grid view to delete one or more selected message(s)
