@@ -105,6 +105,17 @@
                         <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=MessageType, Mode=OneWay}" IsReadOnly="True"/>
                     </Grid>
                 </TabItem>
+                <TabItem Header="Extension data">
+                    <DockPanel>
+                        <RichTextBox AllowDrop="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="{Binding Path=ExtensionData, Mode=OneWay}"/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                    </DockPanel>
+                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

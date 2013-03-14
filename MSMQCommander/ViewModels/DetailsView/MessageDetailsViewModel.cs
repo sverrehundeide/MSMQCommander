@@ -246,5 +246,16 @@ namespace MSMQCommander.ViewModels
                 return _message.MessageType.ToString();
             }
         }
+
+        public string ExtensionData
+        {
+            get
+            {
+                if (_message == null)
+                    return string.Empty;
+
+                return _message.GetExtensionDataAsString();
+            }
+        }
     }
 }

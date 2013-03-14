@@ -1,4 +1,5 @@
-﻿using System.Messaging;
+﻿using System.IO;
+using System.Messaging;
 using System.Text;
 
 namespace MsmqLib
@@ -8,15 +9,21 @@ namespace MsmqLib
         public static string GetMessageBodyAsString(this Message message)
         {
             var encoding = new UTF8Encoding();
-            return encoding.GetString(GetBodyAsByteArray(message), 0, (int)message.BodyStream.Length);
+            return encoding.GetString(GetStreamAsByteArray(message.BodyStream), 0, (int)message.BodyStream.Length);
         }
 
-        public static byte[] GetBodyAsByteArray(Message msg)
+        public static byte[] GetStreamAsByteArray(Stream stream)
         {
-            msg.BodyStream.Position = 0;
-            var bodyAsByteArray = new byte[msg.BodyStream.Length];
-            msg.BodyStream.Read(bodyAsByteArray, 0, (int)msg.BodyStream.Length);
-            return bodyAsByteArray;
+            stream.Position = 0;
+            var streamAsByteArray = new byte[stream.Length];
+            stream.Read(streamAsByteArray, 0, (int)stream.Length);
+            return streamAsByteArray;
+        }
+
+        public static string GetExtensionDataAsString(this Message message)
+        {
+            var encoding = new UTF8Encoding();
+            return encoding.GetString(message.Extension, 0, message.Extension.Length);
         }
     }
 }
