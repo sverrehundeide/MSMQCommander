@@ -101,7 +101,7 @@ namespace MsmqLib
                                   {
                                       UseDeadLetterQueue = useDeadLetterQueue
                                   };
-                messageQueue.Execute(queue => queue.Send(message, (label ?? string.Empty), MessageQueueTransactionType.Automatic));
+                messageQueue.Execute((queue, transactionType) => queue.Send(message, (label ?? string.Empty), transactionType));
             }
             catch (Exception e)
             {
@@ -345,7 +345,7 @@ namespace MsmqLib
         {
             try
             {
-                messageQueue.Execute(queue => queue.ReceiveById(messageId, MessageQueueTransactionType.Automatic));
+                messageQueue.Execute((queue, transactionType) => queue.ReceiveById(messageId, transactionType));
             }
             catch (Exception e)
             {

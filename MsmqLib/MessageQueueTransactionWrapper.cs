@@ -9,7 +9,7 @@ namespace MsmqLib
 {
     public static class MessageQueueExtensions
     {
-        public static void Execute(this MessageQueue queue, Action<MessageQueue> action)
+        public static void Execute(this MessageQueue queue, Action<MessageQueue, MessageQueueTransactionType> action)
         {
             if (queue.Transactional)
             {
@@ -21,18 +21,18 @@ namespace MsmqLib
             }
         }
 
-        private static void ExecuteTransactional(MessageQueue queue, Action<MessageQueue> action)
+        private static void ExecuteTransactional(MessageQueue queue, Action<MessageQueue, MessageQueueTransactionType> action)
         {
             using (var transaction = new TransactionScope())
             {
-                action.Invoke(queue);
+                action.Invoke(queue, MessageQueueTransactionType.Single);
                 transaction.Complete();
             }
         }
 
-        private static void ExecuteNonTransactional(MessageQueue queue, Action<MessageQueue> action)
+        private static void ExecuteNonTransactional(MessageQueue queue, Action<MessageQueue, MessageQueueTransactionType> action)
         {
-            action.Invoke(queue);
+			action.Invoke(queue, MessageQueueTransactionType.Automatic);
         }
     }
 }
