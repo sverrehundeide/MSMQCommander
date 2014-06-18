@@ -143,6 +143,7 @@
     <Compile Include="ViewModels\Dialogs\ConfigureConnectionViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CreateNewMessageViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\CreateNewQueueViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ExportAllMessagesToQueueViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\ImportMessageBodyViewModel.cs" />
     <Compile Include="ViewModels\TreeView\ComputerTreeNodeViewModel.cs" />
     <Compile Include="ViewModels\TreeView\JournalQueueTreeNodeViewModel.cs" />
@@ -152,11 +153,14 @@
     <Compile Include="Views\Dialogs\ConfigureConnectionView.xaml.cs">
       <DependentUpon>ConfigureConnectionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\CreateNewQueueView.xaml.cs">
+      <DependentUpon>CreateNewQueueView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\CreateNewMessageView.xaml.cs">
       <DependentUpon>CreateNewMessageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\CreateNewQueueView.xaml.cs">
-      <DependentUpon>CreateNewQueueView.xaml</DependentUpon>
+    <Compile Include="Views\Dialogs\ExportAllMessagesToQueueView.xaml.cs">
+      <DependentUpon>ExportAllMessagesToQueueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\ImportMessageBodyView.xaml.cs">
       <DependentUpon>ImportMessageBodyView.xaml</DependentUpon>
@@ -195,11 +199,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\CreateNewQueueView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Dialogs\CreateNewMessageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\CreateNewQueueView.xaml">
+    <Page Include="Views\Dialogs\ExportAllMessagesToQueueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

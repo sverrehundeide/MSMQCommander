@@ -26,7 +26,13 @@
                             <TextBlock Text="{Binding MessageCount}" Foreground="RoyalBlue"/>
                             <StackPanel.ContextMenu>
                                 <ContextMenu Visibility="{Binding ContextMenuVisibility}">
-                                    <MenuItem Header="{Binding Name}" FontWeight="Bold" Foreground="Gray" IsHitTestVisible="False" />
+                                  <MenuItem Header="{Binding Name}" FontWeight="Bold" Foreground="Gray" >
+                                    <i:Interaction.Triggers>
+                                      <i:EventTrigger EventName="Click">
+                                        <cal:ActionMessage MethodName="CopyName"/>
+                                      </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                  </MenuItem>
                                     <Separator IsTabStop="False" IsHitTestVisible="False" />
                                     <MenuItem Header="{Binding ToggleJournalingCaption}" Visibility="{Binding IsJournalingTogglingContextMenuVisible, Mode=OneWay}">
                                         <i:Interaction.Triggers>
@@ -42,6 +48,13 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </MenuItem>
+                                  <MenuItem Header="Export all messages" Visibility="{Binding IsExportAllMessagesVisible, Mode=OneWay}">
+                                    <i:Interaction.Triggers>
+                                      <i:EventTrigger EventName="Click">
+                                        <cal:ActionMessage MethodName="ExportAllMessages"/>
+                                      </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                  </MenuItem>
                                     <MenuItem Header="Create new queue" Visibility="{Binding IsCreateNewQueueContextMenuVisible, Mode=OneWay}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">

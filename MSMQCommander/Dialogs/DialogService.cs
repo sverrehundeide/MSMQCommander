@@ -20,6 +20,8 @@ namespace MSMQCommander.Dialogs
         bool DeleteMessage(MessageQueue messageQueue, string messageId);
         bool CreateNewQueue();
         bool DeleteQueue(MessageQueue messageQueue);
+
+        bool ExportAllMessagesToQueue(string sourceQueue, string messageId = null);
     }
 
     public class DialogService : IDialogService
@@ -102,6 +104,12 @@ namespace MSMQCommander.Dialogs
         public bool CreateNewQueue()
         {
             var viewModel = (CreateNewQueueViewModel) ViewModelLocator.LocateForViewType(typeof (CreateNewQueueView));
+            return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
+        }
+
+        public bool ExportAllMessagesToQueue(string sourceQueue, string messageId = null) {
+            var viewModel = (ExportAllMessagesToQueueViewModel)ViewModelLocator.LocateForViewType(typeof(ExportAllMessagesToQueueView));
+            viewModel.Initialize(sourceQueue, messageId);
             return _windowManager.ShowDialog(viewModel).GetValueOrDefault();
         }
 

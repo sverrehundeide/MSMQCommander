@@ -74,6 +74,10 @@ namespace MSMQCommander.ViewModels
             get { return Visibility.Visible; }
         }
 
+        public Visibility IsExportAllMessagesContextMenuVisible {
+            get { return Visibility.Visible; }
+        }
+
         public Visibility IsCreateNewQueueContextMenuVisible
         {
             get { return Visibility.Collapsed; }
@@ -162,6 +166,19 @@ namespace MSMQCommander.ViewModels
                 _queueService.PurgeMessages(_messageQueue);
                 _eventAggregator.Publish(new RefreshQueuesEvent());
             }
+        }
+
+        public void ExportAllMessages()
+        {
+            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.QueueName))
+            {
+                _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
+        }
+
+        public void CopyName()
+        {
+            Clipboard.SetText(this.Name);
         }
 
         public void DeleteQueue()

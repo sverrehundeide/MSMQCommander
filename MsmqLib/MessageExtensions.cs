@@ -11,11 +11,11 @@ namespace MsmqLib
             return encoding.GetString(GetBodyAsByteArray(message), 0, (int)message.BodyStream.Length);
         }
 
-        public static byte[] GetBodyAsByteArray(Message msg)
+        public static byte[] GetBodyAsByteArray(this Message message)
         {
-            msg.BodyStream.Position = 0;
-            var bodyAsByteArray = new byte[msg.BodyStream.Length];
-            msg.BodyStream.Read(bodyAsByteArray, 0, (int)msg.BodyStream.Length);
+            message.BodyStream.Position = 0;
+            var bodyAsByteArray = new byte[message.BodyStream.Length];
+            message.BodyStream.Read(bodyAsByteArray, 0, (int)message.BodyStream.Length);
             return bodyAsByteArray;
         }
     }
