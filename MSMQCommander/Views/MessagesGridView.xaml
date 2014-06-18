@@ -36,6 +36,13 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </MenuItem>
+						<MenuItem Header="Export message to queue..." IsEnabled="{Binding Path=IsExportMessageToQueueEnabled, Mode=OneWay}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="ExportMessageToQueue"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
                         <MenuItem Header="Create new message...">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">

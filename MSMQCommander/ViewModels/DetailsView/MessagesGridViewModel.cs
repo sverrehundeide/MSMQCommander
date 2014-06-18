@@ -54,6 +54,7 @@ namespace MSMQCommander.ViewModels
                 _lastSelectedItem = value;
                 NotifyOfPropertyChange(() => IsExportMessageBodyEnabled);
                 NotifyOfPropertyChange(() => IsDeleteMessageEnabled);
+                NotifyOfPropertyChange(() => IsExportMessageToQueueEnabled);
 
                 if (value == null || !Messages.Any())
                     return;
@@ -134,7 +135,18 @@ namespace MSMQCommander.ViewModels
             }
         }
 
+        public void ExportMessageToQueue() {
+            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.QueueName, _lastSelectedItem.Id)) {
+                _eventAggregator.Publish(new RefreshQueuesEvent());
+            }
+        }
+
         public bool IsDeleteMessageEnabled
+        {
+            get { return _lastSelectedItem != null; }
+        }
+
+        public bool IsExportMessageToQueueEnabled
         {
             get { return _lastSelectedItem != null; }
         }

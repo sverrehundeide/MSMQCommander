@@ -8,6 +8,8 @@ using MsmqLib.Mapping;
 
 namespace MsmqLib
 {
+    using System.Linq;
+
     public interface IQueueService
     {
         MessageQueue[] GetPrivateQueues(string computerName);
@@ -20,7 +22,10 @@ namespace MsmqLib
         void ClearMessages(string queuePath, string labelFilter = null);
         IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null);
         IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null);
+		IEnumerable<Message> GetMessages(string queuePath, string labelFilter = null, bool includeBody = false, bool includeExtension = false);
+		IEnumerable<Message> GetMessages(MessageQueue queue, string labelFilter = null, bool includeBody = false, bool includeExtension = false);
         Message GetFullMessage(MessageQueue messageQueue, string messageId);
+		Message GetFullMessage(string queuePath, string messageId);
         int GetMessageCount(MessageQueue messageQueue);
         MessageQueue GetJournalQueue(MessageQueue messageQueue);
         void PurgeMessages(MessageQueue messageQueue);
@@ -29,6 +34,7 @@ namespace MsmqLib
         bool ImportMessageBody(MessageQueue messageQueue, string fileName, out string errorMessage, bool useDeadletterQueue = true);
         bool DeleteMessage(MessageQueue messageQueue, string messageId, out string errorMessage);
         bool HasAccess(MessageQueue messageQueue);
+        bool CreateMessageFromByteArray(MessageQueue messageQueue, byte[] body, byte[] header, out string errorMessage, string label = null, bool useDeadLetterQueue = true);
     }
 
     public class QueueService : IQueueService
@@ -143,59 +149,49 @@ namespace MsmqLib
             }
         }
 
-        //public bool CreateMessageFromByteArray(MessageQueue messageQueue, byte[] body, out string errorMessage, string label = null, bool useDeadLetterQueue = true)
-        //{
-        //    try
-        //    {
-        //        var message = new Message();
-        //        message.Formatter = new BinaryMessageFormatter();
-        //        for (var i=0; i<body.Length; i++)
-        //        {
-        //            message.BodyStream.WriteByte(body[i]);
-        //        }
-        //        messageQueue.Send(message, (label ?? string.Empty));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        errorMessage = e.Message;
-        //        return false;
-        //    }
-        //    errorMessage = null;
-        //    return true;
-        //}
-
-        public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)
-        {
-            Guard.QueueExists(queuePath);
-            var queue = new MessageQueue(queuePath);
-            return GetMessageInfos(queue, labelFilter);
+        public bool CreateMessageFromByteArray(MessageQueue messageQueue, byte[] body, byte [] header, out string errorMessage, string label = null, bool useDeadLetterQueue = true) {
+            try {
+                var message = new Message();
+                message.Formatter = new BinaryMessageFormatter();
+                message.BodyStream.Write(body, 0, body.Length);
+                message.Extension = header;
+                messageQueue.Execute((queue, transactionType) => queue.Send(message, (label ?? string.Empty), transactionType));
+            }
+            catch (Exception e) {
+                errorMessage = e.Message;
+                return false;
+            }
+            errorMessage = null;
+            return true;
         }
 
-        public IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null)
-        {
+        public IEnumerable<Message> GetMessages(string queuePath, string labelFilter = null, bool includeBody = false, bool includeExtension = false) {
+            Guard.QueueExists(queuePath);
+            var queue = new MessageQueue(queuePath);
+            return this.GetMessages(queue, labelFilter, includeBody, includeExtension);
+        }
+
+        public IEnumerable<Message> GetMessages(MessageQueue queue, string labelFilter = null, bool includeBody = false, bool includeExtension = false) {
             queue.MessageReadPropertyFilter.ClearAll();
             queue.MessageReadPropertyFilter.Id = true;
             queue.MessageReadPropertyFilter.Label = true;
             queue.MessageReadPropertyFilter.SentTime = true;
+            queue.MessageReadPropertyFilter.Body = includeBody;
+            queue.MessageReadPropertyFilter.Extension = includeExtension;
 
-            var result = new List<MessageInfo>();
-            if (!HasAccess(queue))
-            {
+            var result = new List<Message>();
+            if (!HasAccess(queue)) {
                 return result;
             }
 
             var messageEnumerator = queue.GetMessageEnumerator2();
-            try
-            {
-                while (messageEnumerator.MoveNext())
-                {
+            try {
+                while (messageEnumerator.MoveNext()) {
                     Message currentMessage = null;
-                    try
-                    {
+                    try {
                         currentMessage = messageEnumerator.Current;
                     }
-                    catch (MessageQueueException e)
-                    {
+                    catch (MessageQueueException e) {
                         //TODO: Use ILog
                         Console.WriteLine(e);
                     }
@@ -203,15 +199,33 @@ namespace MsmqLib
                         continue;
 
                     if (labelFilter == null || currentMessage.Label == labelFilter)
-                        result.Add(currentMessage.ToMessageInfo());
+                        result.Add(currentMessage);
                 }
             }
-            finally
-            {
+            finally {
                 messageEnumerator.Close();
             }
             queue.Close();
             return result;
+        }
+
+        public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)
+        {
+            Guard.QueueExists(queuePath);
+            var queue = new MessageQueue(queuePath);
+            return this.GetMessages(queue, labelFilter).Select(m=> m.ToMessageInfo());
+        }
+
+        public IEnumerable<MessageInfo> GetMessageInfos(MessageQueue queue, string labelFilter = null)
+        {
+            return this.GetMessages(queue, labelFilter).Select(m => m.ToMessageInfo());
+        }
+
+
+        public Message GetFullMessage(string queuePath, string messageId) {
+            Guard.QueueExists(queuePath);
+            var queue = new MessageQueue(queuePath);
+            return this.GetFullMessage(queue, messageId);
         }
 
         public Message GetFullMessage(MessageQueue messageQueue, string messageId)
