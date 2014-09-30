@@ -40,7 +40,7 @@ namespace MSMQCommander.ViewModels
         {
             Children = new BindableCollection<JournalQueueTreeNodeViewModel>();
             var journalQueue = _queueService.GetJournalQueue(_messageQueue);
-            Children.Add(new JournalQueueTreeNodeViewModel(_eventAggregator, journalQueue, _queueService));
+            Children.Add(new JournalQueueTreeNodeViewModel(_eventAggregator, journalQueue, _queueService, _dialogService));
         }
 
         public string Name
@@ -170,7 +170,7 @@ namespace MSMQCommander.ViewModels
 
         public void ExportAllMessages()
         {
-            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.QueueName))
+            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.Path))
             {
                 _eventAggregator.Publish(new RefreshQueuesEvent());
             }

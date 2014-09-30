@@ -33,6 +33,9 @@
 					<Button x:Name="ExportMessages" Content="_Export messages" Padding="5,0,5,0"/>
 					<Button x:Name="Cancel" Content="_Cancel" Padding="5,0,5,0" Margin="5,0,5,0" IsCancel="True"/>
 				</StackPanel>
+				<StackPanel Grid.Column="0" Grid.Row="1">
+					<CheckBox x:Name="RemoveAfterCopy" Content="Then remove messages" IsChecked="{Binding Path=RemoveAfterCopy, Mode=TwoWay}"></CheckBox>
+				</StackPanel>
 			</Grid>
 		</DockPanel>
 	</Grid>

@@ -166,7 +166,6 @@ namespace MsmqLib
         }
 
         public IEnumerable<Message> GetMessages(string queuePath, string labelFilter = null, bool includeBody = false, bool includeExtension = false) {
-            Guard.QueueExists(queuePath);
             var queue = new MessageQueue(queuePath);
             return this.GetMessages(queue, labelFilter, includeBody, includeExtension);
         }
@@ -211,7 +210,6 @@ namespace MsmqLib
 
         public IEnumerable<MessageInfo> GetMessageInfos(string queuePath, string labelFilter = null)
         {
-            Guard.QueueExists(queuePath);
             var queue = new MessageQueue(queuePath);
             return this.GetMessages(queue, labelFilter).Select(m=> m.ToMessageInfo());
         }
@@ -223,7 +221,6 @@ namespace MsmqLib
 
 
         public Message GetFullMessage(string queuePath, string messageId) {
-            Guard.QueueExists(queuePath);
             var queue = new MessageQueue(queuePath);
             return this.GetFullMessage(queue, messageId);
         }
