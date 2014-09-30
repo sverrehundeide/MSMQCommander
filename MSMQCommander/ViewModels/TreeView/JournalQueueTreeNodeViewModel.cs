@@ -6,7 +6,9 @@ using MsmqLib;
 
 namespace MSMQCommander.ViewModels
 {
-    public class JournalQueueTreeNodeViewModel :
+	using MSMQCommander.Dialogs;
+
+	public class JournalQueueTreeNodeViewModel :
         PropertyChangedBase,
         IHandle<RefreshQueuesEvent>
     {
@@ -14,13 +16,14 @@ namespace MSMQCommander.ViewModels
         private readonly MessageQueue _journalQueue;
         private readonly IQueueService _queueService;
         private bool _isSelected;
+		private readonly IDialogService _dialogService;
 
-        public JournalQueueTreeNodeViewModel(IEventAggregator eventAggregator, MessageQueue journalQueue, IQueueService queueService)
+        public JournalQueueTreeNodeViewModel(IEventAggregator eventAggregator, MessageQueue journalQueue, IQueueService queueService, IDialogService dialogService)
         {
             _eventAggregator = eventAggregator;
             _journalQueue = journalQueue;
             _queueService = queueService;
-
+	        _dialogService = dialogService;
             _eventAggregator.Subscribe(this);
         }
 
@@ -70,6 +73,21 @@ namespace MSMQCommander.ViewModels
                 }
             }
         }
+
+		public void PurgeMessages() {
+			var question = string.Format("Delete all messages in the queue {0}?", Name);
+			if (MessageBoxResult.Yes == _dialogService.AskQuestion(question, "Delete messages", MessageBoxButton.YesNo)) {
+				_queueService.PurgeMessages(_journalQueue);
+				_eventAggregator.Publish(new RefreshQueuesEvent());
+			}
+		}
+
+		public void ExportAllMessages()
+		{
+			if (_dialogService.ExportAllMessagesToQueue(_journalQueue.Path)) {
+				_eventAggregator.Publish(new RefreshQueuesEvent());
+			}
+		}
 
         public void Handle(RefreshQueuesEvent message)
         {

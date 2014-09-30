@@ -136,7 +136,7 @@ namespace MSMQCommander.ViewModels
         }
 
         public void ExportMessageToQueue() {
-            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.QueueName, _lastSelectedItem.Id)) {
+            if (_dialogService.ExportAllMessagesToQueue(_messageQueue.Path, _lastSelectedItem.Id)) {
                 _eventAggregator.Publish(new RefreshQueuesEvent());
             }
         }
